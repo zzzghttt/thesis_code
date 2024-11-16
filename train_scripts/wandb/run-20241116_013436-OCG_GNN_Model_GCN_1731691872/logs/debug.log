@@ -1,0 +1,27 @@
+2024-11-16 01:34:36,104 INFO    MainThread:77697 [wandb_setup.py:_flush():79] Current SDK version is 0.18.7
+2024-11-16 01:34:36,105 INFO    MainThread:77697 [wandb_setup.py:_flush():79] Configure stats pid to 77697
+2024-11-16 01:34:36,105 INFO    MainThread:77697 [wandb_setup.py:_flush():79] Loading settings from /Users/chenyi/.config/wandb/settings
+2024-11-16 01:34:36,105 INFO    MainThread:77697 [wandb_setup.py:_flush():79] Loading settings from /Users/chenyi/Documents/sag/Final_Project/train_scripts/wandb/settings
+2024-11-16 01:34:36,105 INFO    MainThread:77697 [wandb_setup.py:_flush():79] Loading settings from environment variables: {}
+2024-11-16 01:34:36,105 INFO    MainThread:77697 [wandb_setup.py:_flush():79] Applying setup settings: {'mode': None, '_disable_service': None}
+2024-11-16 01:34:36,105 INFO    MainThread:77697 [wandb_setup.py:_flush():79] Inferring run settings from compute environment: {'program_relpath': 'pyg_homo_model_train.py', 'program_abspath': '/Users/chenyi/Documents/sag/Final_Project/train_scripts/pyg_homo_model_train.py', 'program': '/Users/chenyi/Documents/sag/Final_Project/train_scripts/pyg_homo_model_train.py'}
+2024-11-16 01:34:36,105 INFO    MainThread:77697 [wandb_setup.py:_flush():79] Applying login settings: {}
+2024-11-16 01:34:36,105 INFO    MainThread:77697 [wandb_setup.py:_flush():79] Applying login settings: {'api_key': '***REDACTED***'}
+2024-11-16 01:34:36,105 INFO    MainThread:77697 [wandb_init.py:_log_setup():533] Logging user logs to /Users/chenyi/Documents/sag/Final_Project/train_scripts/wandb/run-20241116_013436-OCG_GNN_Model_GCN_1731691872/logs/debug.log
+2024-11-16 01:34:36,105 INFO    MainThread:77697 [wandb_init.py:_log_setup():534] Logging internal logs to /Users/chenyi/Documents/sag/Final_Project/train_scripts/wandb/run-20241116_013436-OCG_GNN_Model_GCN_1731691872/logs/debug-internal.log
+2024-11-16 01:34:36,105 INFO    MainThread:77697 [wandb_init.py:init():619] calling init triggers
+2024-11-16 01:34:36,105 INFO    MainThread:77697 [wandb_init.py:init():626] wandb.init called with sweep_config: {}
+config: {'DATASET_PATH': {'EDGE_TYPES': ['class_to_class'], 'SAVE2FILE_ROOTPATH': '/Users/chenyi/Documents/sag/Final_Project/data', 'NODE_FEATURE_SAVE2FILE_PATH': '/Users/chenyi/Documents/sag/Final_Project/data/{DATA_TYPE}/node_feature', 'EDGE_INDEX_SAVE2FILE_PATH': '/Users/chenyi/Documents/sag/Final_Project/data/{DATA_TYPE}/edge_index', 'PYG_GRAPH_SAVE2FILE_PATH': '/Users/chenyi/Documents/sag/Final_Project/data/pyg_graph/{DATA_TYPE}', 'FEATURE_SAVE2FILE_PATH': '/Users/chenyi/Documents/sag/Final_Project/data/feature_processed/', 'MODEL_SAVE_PATH': '/Users/chenyi/Documents/sag/Final_Project/data/model_res/GAT/'}, 'TRAIN_CONF': {'GRAPH_TYPE': 'Homo', 'CONV_TYPE': 'GCN', 'FEATURE_WITH_MMAP': False, 'LABEL_TOPN': 0.999, 'DENSE_FEATURE_NORMALIZE': True, 'WANDB_PROJECT_NAME': 'object_construction_node_classify_gnn_model', 'NUM_ClASS': 2, 'EVAL_INTERNAL': 5, 'TRAIN_EPOCHS': 100, 'BATCH_SIZE': 128, 'LEARNING_RATE': 0.001, 'WEIGHT_DECAY': 0.01, 'EARLY_STOP': 30, 'TRAIN_SIZE': 1.0, 'VAL_SIZE': 0}, 'NETWORK_CONFIG': {'N_HEADS': 2, 'N_LAYERS': 2, 'HIDEN_SIZE': 512, 'FAN_OUTS': [10, 10]}}
+2024-11-16 01:34:36,106 INFO    MainThread:77697 [wandb_init.py:init():669] starting backend
+2024-11-16 01:34:36,106 INFO    MainThread:77697 [wandb_init.py:init():673] sending inform_init request
+2024-11-16 01:34:36,108 INFO    MainThread:77697 [backend.py:_multiprocessing_setup():104] multiprocessing start_methods=spawn,fork,forkserver, using: spawn
+2024-11-16 01:34:36,108 INFO    MainThread:77697 [wandb_init.py:init():686] backend started and connected
+2024-11-16 01:34:36,118 INFO    MainThread:77697 [wandb_init.py:init():781] updated telemetry
+2024-11-16 01:34:36,128 INFO    MainThread:77697 [wandb_init.py:init():814] communicating run to backend with 90.0 second timeout
+2024-11-16 01:34:36,689 INFO    MainThread:77697 [wandb_init.py:init():867] starting run threads in backend
+2024-11-16 01:34:36,774 INFO    MainThread:77697 [wandb_run.py:_console_start():2456] atexit reg
+2024-11-16 01:34:36,774 INFO    MainThread:77697 [wandb_run.py:_redirect():2305] redirect: wrap_raw
+2024-11-16 01:34:36,774 INFO    MainThread:77697 [wandb_run.py:_redirect():2370] Wrapping output streams.
+2024-11-16 01:34:36,774 INFO    MainThread:77697 [wandb_run.py:_redirect():2395] Redirects installed.
+2024-11-16 01:34:36,776 INFO    MainThread:77697 [wandb_init.py:init():911] run started, returning control to user process
+2024-11-16 01:34:36,799 WARNING MsgRouterThr:77697 [router.py:message_loop():75] message_loop has been closed

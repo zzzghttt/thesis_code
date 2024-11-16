@@ -1,0 +1,20 @@
+[2024-11-16 01:34:36,795] pyg_homo_model_train.py: INFO:
+**********************************************************************************************************************************************************************************************
+
+MODEL ARCHITECTURE:
+Graph_Model(
+  (layer_convs): ModuleList(
+    (0-1): 2 x GCNConv(-1, 512)
+  )
+  (output_layer_lin1): Linear(-1, 512, bias=True)
+  (output_layer_lin2): Linear(512, 1, bias=True)
+  (sigmoid): Sigmoid()
+)
+**********************************************************************************************************************************************************************************************
+Traceback (most recent call last):
+  File "/Users/chenyi/Documents/sag/Final_Project/train_scripts/pyg_homo_model_train.py", line 212, in <module>
+    train(all_config, device, train_dataloader, val_dataloader, model)
+  File "/Users/chenyi/Documents/sag/Final_Project/train_scripts/pyg_homo_model_train.py", line 55, in train
+    model_save_dir=config['DATASET_PATH']['MODEL_SAVE_PATH'].format(COUNTRY=country), model_save_name=MODEL_NAME
+                                                                            ^^^^^^^
+NameError: name 'country' is not defined

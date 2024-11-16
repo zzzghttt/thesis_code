@@ -1,0 +1,41 @@
+[2024-11-16 01:35:01,652] pyg_homo_model_train.py: INFO:
+**********************************************************************************************************************************************************************************************
+
+MODEL ARCHITECTURE:
+Graph_Model(
+  (layer_convs): ModuleList(
+    (0-1): 2 x GCNConv(-1, 512)
+  )
+  (output_layer_lin1): Linear(-1, 512, bias=True)
+  (output_layer_lin2): Linear(512, 1, bias=True)
+  (sigmoid): Sigmoid()
+)
+**********************************************************************************************************************************************************************************************
+[2024-11-16 01:35:01,653] utility.py: INFO: [EarlyStopper]: Saving model to /Users/chenyi/Documents/sag/Final_Project/data/model_res/GAT/checkpoints/GCN_128_0.001_0.01_2_2_512_[10, 10]_early_stop_202411160135.pth
+[2024-11-16 01:35:01,653] pyg_homo_model_train.py: INFO: Train on epoch    0:
+Traceback (most recent call last):
+  File "/Users/chenyi/Documents/sag/Final_Project/train_scripts/pyg_homo_model_train.py", line 212, in <module>
+    train(all_config, device, train_dataloader, val_dataloader, model)
+  File "/Users/chenyi/Documents/sag/Final_Project/train_scripts/pyg_homo_model_train.py", line 65, in train
+    for sample_data in train_dataloader:
+  File "/opt/homebrew/lib/python3.11/site-packages/torch/utils/data/dataloader.py", line 630, in __next__
+    data = self._next_data()
+           ^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/torch/utils/data/dataloader.py", line 673, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/torch/utils/data/_utils/fetch.py", line 55, in fetch
+    return self.collate_fn(data)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/torch_geometric/loader/node_loader.py", line 147, in collate_fn
+    out = self.node_sampler.sample_from_nodes(input_data)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/torch_geometric/sampler/neighbor_sampler.py", line 322, in sample_from_nodes
+    out = node_sample(inputs, self._sample)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/torch_geometric/sampler/neighbor_sampler.py", line 542, in node_sample
+    out = sample_fn(seed, seed_time)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/torch_geometric/sampler/neighbor_sampler.py", line 508, in _sample
+    raise ImportError(f"'{self.__class__.__name__}' requires "
+ImportError: 'NeighborSampler' requires either 'pyg-lib' or 'torch-sparse'

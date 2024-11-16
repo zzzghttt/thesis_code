@@ -1,0 +1,286 @@
+[2024-11-16 01:45:52,909] pyg_homo_model_train.py: INFO:
+**********************************************************************************************************************************************************************************************
+
+MODEL ARCHITECTURE:
+Graph_Model(
+  (layer_convs): ModuleList(
+    (0-1): 2 x GCNConv(-1, 512)
+  )
+  (output_layer_lin1): Linear(-1, 512, bias=True)
+  (output_layer_lin2): Linear(512, 1, bias=True)
+  (sigmoid): Sigmoid()
+)
+**********************************************************************************************************************************************************************************************
+[2024-11-16 01:45:52,910] utility.py: INFO: [EarlyStopper]: Saving model to /Users/chenyi/Documents/sag/Final_Project/data/model_res/GAT/checkpoints/GCN_128_0.001_0.01_2_2_512_[10, 10]_early_stop_202411160145.pth
+[2024-11-16 01:45:52,910] pyg_homo_model_train.py: INFO: Train on epoch    0:
+[2024-11-16 01:45:52,954] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.6869973540306091}
+[2024-11-16 01:45:52,958] pyg_homo_model_train.py: INFO: epoch:0 - ROC_AUC: 0.2229166666666667; PR_AUC: 0.6159204460411831; KS: 0.6666666666666666; R@0.95P: 0; threhold: 0; P@0.95R: 0.7755102040816326; threhold: 0.8123252391815186;
+[2024-11-16 01:45:52,969] pyg_homo_model_train.py: INFO: Train on epoch    1:
+[2024-11-16 01:45:52,973] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.9381656646728516}
+[2024-11-16 01:45:52,973] pyg_homo_model_train.py: INFO: Train on epoch    2:
+[2024-11-16 01:45:52,977] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.5018144845962524}
+[2024-11-16 01:45:52,977] pyg_homo_model_train.py: INFO: Train on epoch    3:
+[2024-11-16 01:45:52,980] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.6461541652679443}
+[2024-11-16 01:45:52,980] pyg_homo_model_train.py: INFO: Train on epoch    4:
+[2024-11-16 01:45:52,984] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.5455565452575684}
+[2024-11-16 01:45:52,984] pyg_homo_model_train.py: INFO: Train on epoch    5:
+[2024-11-16 01:45:52,987] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.43410348892211914}
+[2024-11-16 01:45:52,990] pyg_homo_model_train.py: INFO: epoch:5 - ROC_AUC: 0.7333333333333333; PR_AUC: 0.8871939026571555; KS: 0.6916666666666667; R@0.95P: 0.775; threhold: 0.8322770595550537; P@0.95R: 0.7755102040816326; threhold: 0.6330148577690125;
+[2024-11-16 01:45:52,995] pyg_homo_model_train.py: INFO: Train on epoch    6:
+[2024-11-16 01:45:52,999] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.48783308267593384}
+[2024-11-16 01:45:52,999] pyg_homo_model_train.py: INFO: Train on epoch    7:
+[2024-11-16 01:45:53,003] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.4754326045513153}
+[2024-11-16 01:45:53,003] pyg_homo_model_train.py: INFO: Train on epoch    8:
+[2024-11-16 01:45:53,006] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.41070520877838135}
+[2024-11-16 01:45:53,006] pyg_homo_model_train.py: INFO: Train on epoch    9:
+[2024-11-16 01:45:53,009] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.3837847113609314}
+[2024-11-16 01:45:53,009] pyg_homo_model_train.py: INFO: Train on epoch   10:
+[2024-11-16 01:45:53,011] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.3951003849506378}
+[2024-11-16 01:45:53,014] pyg_homo_model_train.py: INFO: epoch:10 - ROC_AUC: 0.9104166666666667; PR_AUC: 0.9730670868938383; KS: 0.725; R@0.95P: 0.775; threhold: 0.7957462072372437; P@0.95R: 0.9047619047619048; threhold: 0.23879553377628326;
+[2024-11-16 01:45:53,021] pyg_homo_model_train.py: INFO: Train on epoch   11:
+[2024-11-16 01:45:53,024] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.394135981798172}
+[2024-11-16 01:45:53,024] pyg_homo_model_train.py: INFO: Train on epoch   12:
+[2024-11-16 01:45:53,028] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.37147679924964905}
+[2024-11-16 01:45:53,028] pyg_homo_model_train.py: INFO: Train on epoch   13:
+[2024-11-16 01:45:53,031] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.34672605991363525}
+[2024-11-16 01:45:53,031] pyg_homo_model_train.py: INFO: Train on epoch   14:
+[2024-11-16 01:45:53,034] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.3423364460468292}
+[2024-11-16 01:45:53,034] pyg_homo_model_train.py: INFO: Train on epoch   15:
+[2024-11-16 01:45:53,038] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.34675198793411255}
+[2024-11-16 01:45:53,041] pyg_homo_model_train.py: INFO: epoch:15 - ROC_AUC: 0.8979166666666666; PR_AUC: 0.9720046297337029; KS: 0.775; R@0.95P: 0.775; threhold: 0.8176966905593872; P@0.95R: 0.8260869565217391; threhold: 0.5233185291290283;
+[2024-11-16 01:45:53,048] pyg_homo_model_train.py: INFO: Train on epoch   16:
+[2024-11-16 01:45:53,052] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.3374902606010437}
+[2024-11-16 01:45:53,052] pyg_homo_model_train.py: INFO: Train on epoch   17:
+[2024-11-16 01:45:53,056] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.3169882893562317}
+[2024-11-16 01:45:53,056] pyg_homo_model_train.py: INFO: Train on epoch   18:
+[2024-11-16 01:45:53,062] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.30372416973114014}
+[2024-11-16 01:45:53,062] pyg_homo_model_train.py: INFO: Train on epoch   19:
+[2024-11-16 01:45:53,066] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.2996886968612671}
+[2024-11-16 01:45:53,066] pyg_homo_model_train.py: INFO: Train on epoch   20:
+[2024-11-16 01:45:53,070] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.2956216633319855}
+[2024-11-16 01:45:53,073] pyg_homo_model_train.py: INFO: epoch:20 - ROC_AUC: 0.95625; PR_AUC: 0.9868380153253005; KS: 0.8166666666666667; R@0.95P: 0.9; threhold: 0.4378949999809265; P@0.95R: 0.9047619047619048; threhold: 0.3671337962150574;
+[2024-11-16 01:45:53,079] pyg_homo_model_train.py: INFO: Train on epoch   21:
+[2024-11-16 01:45:53,082] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.2837635278701782}
+[2024-11-16 01:45:53,083] pyg_homo_model_train.py: INFO: Train on epoch   22:
+[2024-11-16 01:45:53,086] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.27048513293266296}
+[2024-11-16 01:45:53,086] pyg_homo_model_train.py: INFO: Train on epoch   23:
+[2024-11-16 01:45:53,089] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.26032087206840515}
+[2024-11-16 01:45:53,089] pyg_homo_model_train.py: INFO: Train on epoch   24:
+[2024-11-16 01:45:53,091] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.25671079754829407}
+[2024-11-16 01:45:53,091] pyg_homo_model_train.py: INFO: Train on epoch   25:
+[2024-11-16 01:45:53,095] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.24689224362373352}
+[2024-11-16 01:45:53,098] pyg_homo_model_train.py: INFO: epoch:25 - ROC_AUC: 0.98125; PR_AUC: 0.9941297892590556; KS: 0.8666666666666666; R@0.95P: 1.0; threhold: 0.44936463236808777; P@0.95R: 0.9743589743589743; threhold: 0.5143222212791443;
+[2024-11-16 01:45:53,105] pyg_homo_model_train.py: INFO: Train on epoch   26:
+[2024-11-16 01:45:53,108] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.2325814664363861}
+[2024-11-16 01:45:53,108] pyg_homo_model_train.py: INFO: Train on epoch   27:
+[2024-11-16 01:45:53,111] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.22168788313865662}
+[2024-11-16 01:45:53,111] pyg_homo_model_train.py: INFO: Train on epoch   28:
+[2024-11-16 01:45:53,114] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.21611374616622925}
+[2024-11-16 01:45:53,114] pyg_homo_model_train.py: INFO: Train on epoch   29:
+[2024-11-16 01:45:53,117] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.2060527801513672}
+[2024-11-16 01:45:53,117] pyg_homo_model_train.py: INFO: Train on epoch   30:
+[2024-11-16 01:45:53,122] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.19174066185951233}
+[2024-11-16 01:45:53,124] pyg_homo_model_train.py: INFO: epoch:30 - ROC_AUC: 1.0; PR_AUC: 1.0; KS: 1.0; R@0.95P: 1.0; threhold: 0.40637218952178955; P@0.95R: 1.0; threhold: 0.6230905652046204;
+[2024-11-16 01:45:53,131] pyg_homo_model_train.py: INFO: Train on epoch   31:
+[2024-11-16 01:45:53,134] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.1840921938419342}
+[2024-11-16 01:45:53,135] pyg_homo_model_train.py: INFO: Train on epoch   32:
+[2024-11-16 01:45:53,138] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.17368367314338684}
+[2024-11-16 01:45:53,138] pyg_homo_model_train.py: INFO: Train on epoch   33:
+[2024-11-16 01:45:53,140] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.16042591631412506}
+[2024-11-16 01:45:53,141] pyg_homo_model_train.py: INFO: Train on epoch   34:
+[2024-11-16 01:45:53,144] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.15146785974502563}
+[2024-11-16 01:45:53,144] pyg_homo_model_train.py: INFO: Train on epoch   35:
+[2024-11-16 01:45:53,147] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.13800086081027985}
+[2024-11-16 01:45:53,150] pyg_homo_model_train.py: INFO: epoch:35 - ROC_AUC: 1.0; PR_AUC: 1.0; KS: 1.0; R@0.95P: 1.0; threhold: 0.2776264548301697; P@0.95R: 1.0; threhold: 0.6830143332481384;
+[2024-11-16 01:45:53,157] pyg_homo_model_train.py: INFO: Train on epoch   36:
+[2024-11-16 01:45:53,161] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.1258779615163803}
+[2024-11-16 01:45:53,161] pyg_homo_model_train.py: INFO: Train on epoch   37:
+[2024-11-16 01:45:53,163] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.11641772091388702}
+[2024-11-16 01:45:53,163] pyg_homo_model_train.py: INFO: Train on epoch   38:
+[2024-11-16 01:45:53,167] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.10408701002597809}
+[2024-11-16 01:45:53,167] pyg_homo_model_train.py: INFO: Train on epoch   39:
+[2024-11-16 01:45:53,171] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.09628895670175552}
+[2024-11-16 01:45:53,171] pyg_homo_model_train.py: INFO: Train on epoch   40:
+[2024-11-16 01:45:53,174] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.08597243577241898}
+[2024-11-16 01:45:53,176] pyg_homo_model_train.py: INFO: epoch:40 - ROC_AUC: 1.0; PR_AUC: 1.0; KS: 1.0; R@0.95P: 1.0; threhold: 0.20812508463859558; P@0.95R: 1.0; threhold: 0.8156782984733582;
+[2024-11-16 01:45:53,184] pyg_homo_model_train.py: INFO: Train on epoch   41:
+[2024-11-16 01:45:53,187] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.07812377065420151}
+[2024-11-16 01:45:53,187] pyg_homo_model_train.py: INFO: Train on epoch   42:
+[2024-11-16 01:45:53,190] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.06999416649341583}
+[2024-11-16 01:45:53,190] pyg_homo_model_train.py: INFO: Train on epoch   43:
+[2024-11-16 01:45:53,192] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.060881420969963074}
+[2024-11-16 01:45:53,193] pyg_homo_model_train.py: INFO: Train on epoch   44:
+[2024-11-16 01:45:53,196] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.05563827604055405}
+[2024-11-16 01:45:53,196] pyg_homo_model_train.py: INFO: Train on epoch   45:
+[2024-11-16 01:45:53,200] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.049015406519174576}
+[2024-11-16 01:45:53,203] pyg_homo_model_train.py: INFO: epoch:45 - ROC_AUC: 1.0; PR_AUC: 1.0; KS: 1.0; R@0.95P: 1.0; threhold: 0.1730826497077942; P@0.95R: 1.0; threhold: 0.9005727171897888;
+[2024-11-16 01:45:53,209] pyg_homo_model_train.py: INFO: Train on epoch   46:
+[2024-11-16 01:45:53,212] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.043936166912317276}
+[2024-11-16 01:45:53,213] pyg_homo_model_train.py: INFO: Train on epoch   47:
+[2024-11-16 01:45:53,215] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.0395418219268322}
+[2024-11-16 01:45:53,215] pyg_homo_model_train.py: INFO: Train on epoch   48:
+[2024-11-16 01:45:53,219] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.037002142518758774}
+[2024-11-16 01:45:53,219] pyg_homo_model_train.py: INFO: Train on epoch   49:
+[2024-11-16 01:45:53,222] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.032204315066337585}
+[2024-11-16 01:45:53,222] pyg_homo_model_train.py: INFO: Train on epoch   50:
+[2024-11-16 01:45:53,225] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.030204908922314644}
+[2024-11-16 01:45:53,228] pyg_homo_model_train.py: INFO: epoch:50 - ROC_AUC: 1.0; PR_AUC: 1.0; KS: 1.0; R@0.95P: 1.0; threhold: 0.07752243429422379; P@0.95R: 1.0; threhold: 0.9083839654922485;
+[2024-11-16 01:45:53,234] pyg_homo_model_train.py: INFO: Train on epoch   51:
+[2024-11-16 01:45:53,237] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.026203282177448273}
+[2024-11-16 01:45:53,237] pyg_homo_model_train.py: INFO: Train on epoch   52:
+[2024-11-16 01:45:53,240] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.025090722367167473}
+[2024-11-16 01:45:53,240] pyg_homo_model_train.py: INFO: Train on epoch   53:
+[2024-11-16 01:45:53,244] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.022384263575077057}
+[2024-11-16 01:45:53,244] pyg_homo_model_train.py: INFO: Train on epoch   54:
+[2024-11-16 01:45:53,247] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.021981652826070786}
+[2024-11-16 01:45:53,247] pyg_homo_model_train.py: INFO: Train on epoch   55:
+[2024-11-16 01:45:53,250] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.02002754993736744}
+[2024-11-16 01:45:53,253] pyg_homo_model_train.py: INFO: epoch:55 - ROC_AUC: 1.0; PR_AUC: 1.0; KS: 1.0; R@0.95P: 1.0; threhold: 0.04704013466835022; P@0.95R: 1.0; threhold: 0.9175087213516235;
+[2024-11-16 01:45:53,259] pyg_homo_model_train.py: INFO: Train on epoch   56:
+[2024-11-16 01:45:53,262] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.019559480249881744}
+[2024-11-16 01:45:53,263] pyg_homo_model_train.py: INFO: Train on epoch   57:
+[2024-11-16 01:45:53,266] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.01866765134036541}
+[2024-11-16 01:45:53,266] pyg_homo_model_train.py: INFO: Train on epoch   58:
+[2024-11-16 01:45:53,269] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.01800786703824997}
+[2024-11-16 01:45:53,269] pyg_homo_model_train.py: INFO: Train on epoch   59:
+[2024-11-16 01:45:53,273] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.017833363264799118}
+[2024-11-16 01:45:53,273] pyg_homo_model_train.py: INFO: Train on epoch   60:
+[2024-11-16 01:45:53,276] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.016791852191090584}
+[2024-11-16 01:45:53,279] pyg_homo_model_train.py: INFO: epoch:60 - ROC_AUC: 1.0; PR_AUC: 1.0; KS: 1.0; R@0.95P: 1.0; threhold: 0.040724966675043106; P@0.95R: 1.0; threhold: 0.931175172328949;
+[2024-11-16 01:45:53,283] pyg_homo_model_train.py: INFO: Train on epoch   61:
+[2024-11-16 01:45:53,287] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.016989827156066895}
+[2024-11-16 01:45:53,287] pyg_homo_model_train.py: INFO: Train on epoch   62:
+[2024-11-16 01:45:53,290] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.01615775004029274}
+[2024-11-16 01:45:53,290] pyg_homo_model_train.py: INFO: Train on epoch   63:
+[2024-11-16 01:45:53,292] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.016881538555026054}
+[2024-11-16 01:45:53,292] pyg_homo_model_train.py: INFO: Train on epoch   64:
+[2024-11-16 01:45:53,296] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.016013968735933304}
+[2024-11-16 01:45:53,296] pyg_homo_model_train.py: INFO: Train on epoch   65:
+[2024-11-16 01:45:53,299] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.016241488978266716}
+[2024-11-16 01:45:53,303] pyg_homo_model_train.py: INFO: epoch:65 - ROC_AUC: 1.0; PR_AUC: 1.0; KS: 1.0; R@0.95P: 1.0; threhold: 0.043135058134794235; P@0.95R: 1.0; threhold: 0.9353742003440857;
+[2024-11-16 01:45:53,310] pyg_homo_model_train.py: INFO: Train on epoch   66:
+[2024-11-16 01:45:53,313] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.01642228104174137}
+[2024-11-16 01:45:53,313] pyg_homo_model_train.py: INFO: Train on epoch   67:
+[2024-11-16 01:45:53,316] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.016466759145259857}
+[2024-11-16 01:45:53,316] pyg_homo_model_train.py: INFO: Train on epoch   68:
+[2024-11-16 01:45:53,320] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.016925431787967682}
+[2024-11-16 01:45:53,320] pyg_homo_model_train.py: INFO: Train on epoch   69:
+[2024-11-16 01:45:53,323] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.01680324599146843}
+[2024-11-16 01:45:53,323] pyg_homo_model_train.py: INFO: Train on epoch   70:
+[2024-11-16 01:45:53,326] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.016766073182225227}
+[2024-11-16 01:45:53,329] pyg_homo_model_train.py: INFO: epoch:70 - ROC_AUC: 1.0; PR_AUC: 1.0; KS: 1.0; R@0.95P: 1.0; threhold: 0.05302681401371956; P@0.95R: 1.0; threhold: 0.9339888691902161;
+[2024-11-16 01:45:53,336] pyg_homo_model_train.py: INFO: Train on epoch   71:
+[2024-11-16 01:45:53,339] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.0172923281788826}
+[2024-11-16 01:45:53,339] pyg_homo_model_train.py: INFO: Train on epoch   72:
+[2024-11-16 01:45:53,341] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.0177167858928442}
+[2024-11-16 01:45:53,341] pyg_homo_model_train.py: INFO: Train on epoch   73:
+[2024-11-16 01:45:53,344] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.017377372831106186}
+[2024-11-16 01:45:53,344] pyg_homo_model_train.py: INFO: Train on epoch   74:
+[2024-11-16 01:45:53,347] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.01773774065077305}
+[2024-11-16 01:45:53,347] pyg_homo_model_train.py: INFO: Train on epoch   75:
+[2024-11-16 01:45:53,350] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.01812000200152397}
+[2024-11-16 01:45:53,353] pyg_homo_model_train.py: INFO: epoch:75 - ROC_AUC: 1.0; PR_AUC: 1.0; KS: 1.0; R@0.95P: 1.0; threhold: 0.048426706343889236; P@0.95R: 1.0; threhold: 0.9307782053947449;
+[2024-11-16 01:45:53,360] pyg_homo_model_train.py: INFO: Train on epoch   76:
+[2024-11-16 01:45:53,363] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.018133949488401413}
+[2024-11-16 01:45:53,363] pyg_homo_model_train.py: INFO: Train on epoch   77:
+[2024-11-16 01:45:53,367] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.017997952178120613}
+[2024-11-16 01:45:53,367] pyg_homo_model_train.py: INFO: Train on epoch   78:
+[2024-11-16 01:45:53,371] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.01874483935534954}
+[2024-11-16 01:45:53,371] pyg_homo_model_train.py: INFO: Train on epoch   79:
+[2024-11-16 01:45:53,374] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.017831934615969658}
+[2024-11-16 01:45:53,374] pyg_homo_model_train.py: INFO: Train on epoch   80:
+[2024-11-16 01:45:53,377] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.017792629078030586}
+[2024-11-16 01:45:53,380] pyg_homo_model_train.py: INFO: epoch:80 - ROC_AUC: 1.0; PR_AUC: 1.0; KS: 1.0; R@0.95P: 1.0; threhold: 0.05577358603477478; P@0.95R: 1.0; threhold: 0.9343979358673096;
+[2024-11-16 01:45:53,387] pyg_homo_model_train.py: INFO: Train on epoch   81:
+[2024-11-16 01:45:53,390] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.017406383529305458}
+[2024-11-16 01:45:53,390] pyg_homo_model_train.py: INFO: Train on epoch   82:
+[2024-11-16 01:45:53,394] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.017710674554109573}
+[2024-11-16 01:45:53,394] pyg_homo_model_train.py: INFO: Train on epoch   83:
+[2024-11-16 01:45:53,396] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.017082873731851578}
+[2024-11-16 01:45:53,396] pyg_homo_model_train.py: INFO: Train on epoch   84:
+[2024-11-16 01:45:53,400] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.0167403407394886}
+[2024-11-16 01:45:53,400] pyg_homo_model_train.py: INFO: Train on epoch   85:
+[2024-11-16 01:45:53,404] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.01653456874191761}
+[2024-11-16 01:45:53,407] pyg_homo_model_train.py: INFO: epoch:85 - ROC_AUC: 1.0; PR_AUC: 1.0; KS: 1.0; R@0.95P: 1.0; threhold: 0.04461406543850899; P@0.95R: 1.0; threhold: 0.9330253601074219;
+[2024-11-16 01:45:53,413] pyg_homo_model_train.py: INFO: Train on epoch   86:
+[2024-11-16 01:45:53,416] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.015928609296679497}
+[2024-11-16 01:45:53,416] pyg_homo_model_train.py: INFO: Train on epoch   87:
+[2024-11-16 01:45:53,419] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.015866395086050034}
+[2024-11-16 01:45:53,419] pyg_homo_model_train.py: INFO: Train on epoch   88:
+[2024-11-16 01:45:53,422] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.01570800319314003}
+[2024-11-16 01:45:53,422] pyg_homo_model_train.py: INFO: Train on epoch   89:
+[2024-11-16 01:45:53,425] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.015321632847189903}
+[2024-11-16 01:45:53,425] pyg_homo_model_train.py: INFO: Train on epoch   90:
+[2024-11-16 01:45:53,428] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.015385179780423641}
+[2024-11-16 01:45:53,432] pyg_homo_model_train.py: INFO: epoch:90 - ROC_AUC: 1.0; PR_AUC: 1.0; KS: 1.0; R@0.95P: 1.0; threhold: 0.055532004684209824; P@0.95R: 1.0; threhold: 0.9402656555175781;
+[2024-11-16 01:45:53,439] pyg_homo_model_train.py: INFO: Train on epoch   91:
+[2024-11-16 01:45:53,443] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.014815229922533035}
+[2024-11-16 01:45:53,444] pyg_homo_model_train.py: INFO: Train on epoch   92:
+[2024-11-16 01:45:53,447] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.014601810835301876}
+[2024-11-16 01:45:53,447] pyg_homo_model_train.py: INFO: Train on epoch   93:
+[2024-11-16 01:45:53,449] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.01443855557590723}
+[2024-11-16 01:45:53,449] pyg_homo_model_train.py: INFO: Train on epoch   94:
+[2024-11-16 01:45:53,453] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.014221414923667908}
+[2024-11-16 01:45:53,453] pyg_homo_model_train.py: INFO: Train on epoch   95:
+[2024-11-16 01:45:53,456] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.013857201673090458}
+[2024-11-16 01:45:53,459] pyg_homo_model_train.py: INFO: epoch:95 - ROC_AUC: 1.0; PR_AUC: 1.0; KS: 1.0; R@0.95P: 1.0; threhold: 0.052518900483846664; P@0.95R: 1.0; threhold: 0.9473223090171814;
+[2024-11-16 01:45:53,465] pyg_homo_model_train.py: INFO: Train on epoch   96:
+[2024-11-16 01:45:53,469] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.013625146821141243}
+[2024-11-16 01:45:53,469] pyg_homo_model_train.py: INFO: Train on epoch   97:
+[2024-11-16 01:45:53,472] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.013762135058641434}
+[2024-11-16 01:45:53,472] pyg_homo_model_train.py: INFO: Train on epoch   98:
+[2024-11-16 01:45:53,479] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.013435794040560722}
+[2024-11-16 01:45:53,479] pyg_homo_model_train.py: INFO: Train on epoch   99:
+[2024-11-16 01:45:53,483] pyg_homo_model_train.py: INFO: {'train/loss/epoch': 0.013210401870310307}
+[2024-11-16 01:45:53,483] pyg_homo_model_train.py: INFO:
+Best Epoch 95, Val 1.0000
+/Users/chenyi/Documents/sag/Final_Project/train_scripts/utils/utility.py:193: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  model.load_state_dict(torch.load(self.save_path))
+[2024-11-16 01:45:53,490] pyg_homo_model_train.py: INFO:
+Best Epoch 95 - ROC_AUC: 1.0; PR_AUC: 1.0; KS: 1.0; R@0.95P: 1.0; threhold: 0.052518900483846664; P@0.95R: 1.0; threhold: 0.9473223090171814;
+[2024-11-16 01:45:53,490] val_inference.py: INFO: config file path is config/config.yaml
+[2024-11-16 01:45:53,496] val_inference.py: INFO:
+**********************************************************************************************************************************************************************************************
+
+DATASET_CONFIG:
+DATASET_PATH:
+    EDGE_TYPES:
+    - class_to_class
+    SAVE2FILE_ROOTPATH: /Users/chenyi/Documents/sag/Final_Project/data
+    NODE_FEATURE_SAVE2FILE_PATH: /Users/chenyi/Documents/sag/Final_Project/data/{DATA_TYPE}/node_feature
+    EDGE_INDEX_SAVE2FILE_PATH: /Users/chenyi/Documents/sag/Final_Project/data/{DATA_TYPE}/edge_index
+    PYG_GRAPH_SAVE2FILE_PATH: /Users/chenyi/Documents/sag/Final_Project/data/pyg_graph/{DATA_TYPE}
+    FEATURE_SAVE2FILE_PATH: /Users/chenyi/Documents/sag/Final_Project/data/feature_processed/
+    MODEL_SAVE_PATH: /Users/chenyi/Documents/sag/Final_Project/data/model_res/GAT/
+TRAIN_CONF:
+    GRAPH_TYPE: Homo
+    CONV_TYPE: GCN
+    FEATURE_WITH_MMAP: false
+    LABEL_TOPN: 0.999
+    DENSE_FEATURE_NORMALIZE: true
+    WANDB_PROJECT_NAME: object_construction_node_classify_gnn_model
+    NUM_ClASS: 2
+    EVAL_INTERNAL: 5
+    TRAIN_EPOCHS: 100
+    BATCH_SIZE: 128
+    LEARNING_RATE: 0.001
+    WEIGHT_DECAY: 0.01
+    EARLY_STOP: 30
+    TRAIN_SIZE: 1.0
+    VAL_SIZE: 0
+NETWORK_CONFIG:
+    N_HEADS: 2
+    N_LAYERS: 2
+    HIDEN_SIZE: 512
+    FAN_OUTS:
+    - 10
+    - 10
+
+**********************************************************************************************************************************************************************************************
+Traceback (most recent call last):
+  File "/Users/chenyi/Documents/sag/Final_Project/train_scripts/pyg_homo_model_train.py", line 214, in <module>
+    inference(config_file_path, model_path)
+  File "/Users/chenyi/Documents/sag/Final_Project/train_scripts/val_inference.py", line 69, in inference
+    pyg_graph_load_path = all_config['DATASET_PATH']['PYG_GRAPH_SAVE2FILE_PATH'].format(DATE=inference_date, COUNTRY=country)
+                                                                                             ^^^^^^^^^^^^^^
+NameError: name 'inference_date' is not defined
