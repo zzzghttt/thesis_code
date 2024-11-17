@@ -95,12 +95,8 @@ def inference(
     print(f'auc:{auc}\npr_auc:{pr_auc}\nks:{ks}\nrec_95pre:{rec_95pre}\nrec_95pre_thr:{rec_95pre_thr}\npre_95rec:{pre_95rec}\npre_95rec_thr:{pre_95rec_thr}')
 
 if __name__ == '__main__':
-    inference_date = sys.argv[1]
-    country = sys.argv[2]
-    config_file_path = sys.argv[3]
+    config_file_path = sys.argv[1]
     
-    logging.info(f'inference_date is {inference_date}, config file path is {config_file_path}')
-
     # set seeds
     seed_everything(1)
     
@@ -121,7 +117,7 @@ if __name__ == '__main__':
     assert (GRAPH_TYPE == "Homo") and (MODEL_TYPE in ["GCN", "SAGE", "GAT"])
     
     # load pyg graph
-    pyg_graph_load_path = all_config['DATASET_PATH']['PYG_GRAPH_SAVE2FILE_PATH'].format(DATE=inference_date, COUNTRY=country)
+    pyg_graph_load_path = all_config['DATASET_PATH']['PYG_GRAPH_SAVE2FILE_PATH'].format(DATA_TYPE='eval')
 
     logging.info('\n\nloading data...')
     homo_graph_data = torch.load(f'{pyg_graph_load_path}/PYG_HETERO_GRAPH_FOR_TRAIN.pth').to_homogeneous()
@@ -131,7 +127,7 @@ if __name__ == '__main__':
     # graph_metadata = list(homo_graph_data.metadata())
     fan_outs = all_config['NETWORK_CONFIG']['FAN_OUTS']
     
-    model_path = all_config['DATASET_PATH']['MODEL_SAVE2FILE_PATH']
+    model_path = all_config['DATASET_PATH']['MODEL_SAVE_PATH']
     state_dict = torch.load(model_path)
     
     model = Graph_Model(
