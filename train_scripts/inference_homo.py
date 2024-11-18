@@ -26,14 +26,12 @@ def inference(val_dataloader, model, device):
             batch_node_num = sample_data.batch_size
 
             y_pre = model(x=sample_data.x, edge_index=sample_data.edge_index)[: batch_node_num]
-            y_id = sample_data.y[: batch_node_num]
+            y_id = sample_data.n_id[: batch_node_num]
 
             nodes += [i for i in y_id.cpu().numpy()]
             probs += [i for i in y_pre.squeeze(dim=-1).cpu().detach().numpy()]
         
         return nodes, probs
-
-    
     
 if __name__ == '__main__':
     config_file_path = sys.argv[1]
