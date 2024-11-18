@@ -2,11 +2,13 @@ import pymysql
 import sys
 import os
 import torch
+import json
 import pandas as pd
 import numpy as np
 from pyspark.sql.functions import when, col, size
 from pyspark.sql import SparkSession, Row
 from torch_geometric.utils import to_undirected, k_hop_subgraph
+from table_config import *
 
 os.environ['PYSPARK_PYTHON'] = sys.executable
 os.environ['PYSPARK_DRIVER_PYTHON'] = sys.executable
@@ -70,44 +72,53 @@ def push_to_mysql(rdd, table_name, columns):
         finally:
             connection.close()
 
+def read_all_data(
+        data_source_path='/Users/chenyi/Documents/sag/Final_Project/code/data_deploy/chatunitest-info'
+        ):
+    # 找到所有.json文件并存储在列表中
+    class_json_files = [os.path.join(dirpath, file)
+                for dirpath, dirnames, files in os.walk(data_source_path)
+                for file in files if file.endswith('class.json')]
+
+    method_json_files = [os.path.join(dirpath, file)
+                for dirpath, dirnames, files in os.walk(data_source_path)
+                for file in files if file.endswith('.json') and not file.endswith('class.json')]
+
+    # 存储所有DataFrame的列表
+    class_df_list = []
+    method_df_list = []
+
+    for json_file in class_json_files:
+        with open(json_file, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            df = pd.DataFrame([data])
+            class_df_list.append(df)
+
+    for json_file in method_json_files:
+        with open(json_file, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            df = pd.DataFrame([data])
+            method_df_list.append(df)
+
+    class_df = pd.concat(class_df_list, ignore_index=True)
+    method_df = pd.concat(method_df_list, ignore_index=True)
+
+    # 设置预定义类型
+    for key, dtype in expected_types.items():
+        if key in class_df.columns:
+            class_df[key] = class_df[key].astype(dtype)
+        if key in method_df.columns:
+            method_df[key] = method_df[key].astype(dtype)
+
+    class_df.drop_duplicates(subset=['fullClassName'], keep='last', inplace=True)
+    method_df.drop_duplicates(subset=['packageName', 'className', 'methodSignature'], keep='last', inplace=True)
+    return class_df, method_df
+
 def convert_empty_list_to_NULL(df):
     for column_name in df.columns:
         if "array" in df.schema[column_name].dataType.simpleString(): 
             df = df.withColumn(column_name, when(size(col(column_name)) == 0, None).otherwise(col(column_name)))
     return df
-
-
-
-excluded = [
-    'modifier',
-    'extend',
-    'implement'
-]
-
-def hash_string(s):
-    return md5(s.encode('utf-8')).hexdigest()
-
-# # 定义一个函数来处理列表或字典
-# def process_element(element, col_name):
-#     if col_name in excluded:
-#         return element
-#     if isinstance(element, str):
-#         try:
-#             # 尝试将字符串转换为列表或字典
-#             loaded = eval(element)
-#             if isinstance(loaded, list):
-#                 # print("如果是列表，对每个元素计算哈希值")
-#                 return str([hash_string(str(item)) for item in loaded])
-#             elif isinstance(loaded, dict):
-#                 # print("如果是字典，对每个键值计算哈希值")
-#                 return str({hash_string(key): process_element(str(value), key) for key, value in loaded.items()})
-#         except:
-#             # print("如果不是有效的 JSON 字符串，但是str，直接计算hash")
-#             return hash_string(element)
-#     return element
-
-def process_element(element, col_name):
-    return element
 
 def is_match(d1, d2, d1_id, d2_id):
     '''
