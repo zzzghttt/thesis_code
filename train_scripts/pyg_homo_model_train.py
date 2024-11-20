@@ -171,9 +171,6 @@ if __name__ == '__main__':
     homo_graph_train_data = torch.load(f'{train_pyg_graph_load_path}/PYG_HETERO_GRAPH_FOR_TRAIN.pth').to_homogeneous()
     homo_graph_val_data = torch.load(f'{val_pyg_graph_load_path}/PYG_HETERO_GRAPH_FOR_TRAIN.pth').to_homogeneous()
     
-    train_mask = homo_graph_train_data.train_mask
-    val_mask = homo_graph_val_data.train_mask
-    
     fan_outs = all_config['NETWORK_CONFIG']['FAN_OUTS']
     
    # init wandb
@@ -210,5 +207,4 @@ if __name__ == '__main__':
             )
     
     train(all_config, device, train_dataloader, val_dataloader, model, stopper)
-    model_path = os.path.join(all_config['DATASET_PATH']['MODEL_SAVE_PATH'], 'checkpoints', MODEL_NAME)
     inference(config_file_path, stopper)

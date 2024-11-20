@@ -11,10 +11,7 @@ def process_project(project_path):
 
     # 转换spark DataFrame 并写入mysql表
     sp_df1 = convert_empty_list_to_NULL(spark.createDataFrame(class_df))
-    # push_to_mysql(sp_df1.rdd, 'class_raw_data', class_table_columns)
-
     sp_df2 = convert_empty_list_to_NULL(spark.createDataFrame(method_df))
-    # push_to_mysql(sp_df2.rdd, 'method_raw_data', method_table_columns)
 
     # Process RAW Data
 
@@ -38,10 +35,7 @@ def process_project(project_path):
 
     # 转换spark DataFrame 并写入mysql表
     new_sp_df1 = convert_empty_list_to_NULL(spark.createDataFrame(processed_class_df))
-    # push_to_mysql(new_sp_df1.rdd, 'class_processed_data', class_processed_table_columns)
-
     new_sp_df2 = convert_empty_list_to_NULL(spark.createDataFrame(processed_method_df))
-    # push_to_mysql(new_sp_df2.rdd, 'method_processed_data', method_processed_table_columns)
 
     # 构图
 
@@ -89,10 +83,15 @@ def process_project(project_path):
     c2m_sp_df = convert_empty_list_to_NULL(spark.createDataFrame(edge_index_append(edge_index_class_contain_method, 'class_contain_method')))
     c2c_sp_df = convert_empty_list_to_NULL(spark.createDataFrame(edge_index_append(edge_index_class_rely_class, 'class_to_class')))
 
-    # push_to_mysql(m2m_sp_df.rdd, 'edge_method_to_method', edge_index_table_columns)
-    # push_to_mysql(m2c_sp_df.rdd, 'edge_method_to_class', edge_index_table_columns)
-    # push_to_mysql(c2m_sp_df.rdd, 'edge_class_to_method', edge_index_table_columns)
-    # push_to_mysql(c2c_sp_df.rdd, 'edge_class_to_class', edge_index_table_columns)
+
+    push_to_mysql(new_sp_df1.rdd, 'class_processed_data', class_processed_table_columns)
+    push_to_mysql(new_sp_df2.rdd, 'method_processed_data', method_processed_table_columns)
+    push_to_mysql(sp_df1.rdd, 'class_raw_data', class_table_columns)
+    push_to_mysql(sp_df2.rdd, 'method_raw_data', method_table_columns)
+    push_to_mysql(m2m_sp_df.rdd, 'edge_method_to_method', edge_index_table_columns)
+    push_to_mysql(m2c_sp_df.rdd, 'edge_method_to_class', edge_index_table_columns)
+    push_to_mysql(c2m_sp_df.rdd, 'edge_class_to_method', edge_index_table_columns)
+    push_to_mysql(c2c_sp_df.rdd, 'edge_class_to_class', edge_index_table_columns)
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:

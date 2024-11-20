@@ -12,7 +12,7 @@ DATASET_PATH:
     # Feature Process 存储路径
     FEATURE_SAVE2FILE_PATH: "/Users/chenyi/Documents/sag/Final_Project/code/data/feature_processed/"
     # Model, ByteNAS 存储路径
-    MODEL_SAVE_PATH: "/Users/chenyi/Documents/sag/Final_Project/code/data/model_res/GCN/checkpoints/GCN_128_0.001_0.01_2_2_512_[10, 10]_early_stop_202411161845.pth"
+    MODEL_SAVE_PATH: "/Users/chenyi/Documents/sag/Final_Project/code/data/model_res/GCN"
 # 训练参数
 TRAIN_CONF:
     GRAPH_TYPE: "Homo"                      # "Hetero", "Homo"
