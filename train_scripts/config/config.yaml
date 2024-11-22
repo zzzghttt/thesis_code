@@ -4,15 +4,15 @@ DATASET_PATH:
     EDGE_TYPES:           
         - class_to_class
     # ByteNAS 路径, 构图数据先拉取到本地磁盘
-    SAVE2FILE_ROOTPATH:  "/Users/chenyi/Documents/sag/Final_Project/code/data" # 存储路径的根目录
-    NODE_FEATURE_SAVE2FILE_PATH: "/Users/chenyi/Documents/sag/Final_Project/code/data/{DATA_TYPE}/node_feature" # 存储路径的根目录
-    EDGE_INDEX_SAVE2FILE_PATH: "/Users/chenyi/Documents/sag/Final_Project/code/data/{DATA_TYPE}/edge_index"
+    SAVE2FILE_ROOTPATH:  "/Users/chenyi/Documents/sag/Final_Project/code/graph_data" # 存储路径的根目录
+    NODE_FEATURE_SAVE2FILE_PATH: "/Users/chenyi/Documents/sag/Final_Project/code/graph_data/{DATA_TYPE}/node_feature" # 存储路径的根目录
+    EDGE_INDEX_SAVE2FILE_PATH: "/Users/chenyi/Documents/sag/Final_Project/code/graph_data/{DATA_TYPE}/edge_index"
     # PYG Graph, ByteNAS 存储路径
-    PYG_GRAPH_SAVE2FILE_PATH: "/Users/chenyi/Documents/sag/Final_Project/code/data/pyg_graph/{DATA_TYPE}"
+    PYG_GRAPH_SAVE2FILE_PATH: "/Users/chenyi/Documents/sag/Final_Project/code/graph_data/pyg_graph/{DATA_TYPE}"
     # Feature Process 存储路径
-    FEATURE_SAVE2FILE_PATH: "/Users/chenyi/Documents/sag/Final_Project/code/data/feature_processed/"
+    FEATURE_SAVE2FILE_PATH: "/Users/chenyi/Documents/sag/Final_Project/code/graph_data/feature_processed/"
     # Model, ByteNAS 存储路径
-    MODEL_SAVE_PATH: "/Users/chenyi/Documents/sag/Final_Project/code/data/model_res/GCN"
+    MODEL_SAVE_PATH: "/Users/chenyi/Documents/sag/Final_Project/code/graph_data/model_res/GCN"
 # 训练参数
 TRAIN_CONF:
     GRAPH_TYPE: "Homo"                      # "Hetero", "Homo"
@@ -25,8 +25,8 @@ TRAIN_CONF:
     EVAL_INTERNAL: 5
     TRAIN_EPOCHS: 100
     BATCH_SIZE: 128
-    LEARNING_RATE: 0.001
-    WEIGHT_DECAY: 0.01
+    LEARNING_RATE: 0.0001
+    WEIGHT_DECAY: 0.001
     EARLY_STOP: 30
     TRAIN_SIZE: 1.0
     VAL_SIZE: 0

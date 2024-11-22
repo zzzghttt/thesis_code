@@ -11,19 +11,22 @@ import pyarrow.parquet as pq
 
 # Graph Data (Use Class Node Only)
 
-def build_graph_data():
+def build_graph_data(database = 'train'):
+    # use class to class edge
     class_processed_data = pull_data(
         '''
         select * from class_processed_data
-        '''
+        ''',
+        database
     )
 
-    # use class to class edge
     c2c_sp_df = pull_data(
         '''
         select * from edge_class_to_class
-        '''
+        ''',
+        database
     )
+    print(class_processed_data.toPandas())
 
     # Test Node
     target_class_node = class_processed_data.where('isTest == 1').distinct()
@@ -31,6 +34,7 @@ def build_graph_data():
 
     # Source Class Node
     test_list, class_list = find_class_by_test(class_processed_data.toPandas(), target_class_node_list)
+    print(test_list, class_list)
 
     edge_index = torch.from_numpy(c2c_sp_df.select('src_id', 'dst_id').toPandas().values).T
 
@@ -103,6 +107,10 @@ def save_data(node_feature, edge_index, save_path='/Users/chenyi/Documents/sag/F
     print('Data Saved!')
 
 if __name__ == '__main__':
-    save_path = sys.argv[1] if len(sys.argv) > 1 else '/Users/chenyi/Documents/sag/Final_Project/code/data/inference'
-    node_feature, edge_index = build_graph_data()
+    save_path = '/Users/chenyi/Documents/sag/Final_Project/code/graph_data'
+    database = sys.argv[1] if len(sys.argv) > 1 else 'train' # [train , test, eval, inference]
+
+    node_feature, edge_index = build_graph_data(database=database)
+
+    save_path = os.path.join(save_path, database)
     save_data(node_feature, edge_index, save_path)

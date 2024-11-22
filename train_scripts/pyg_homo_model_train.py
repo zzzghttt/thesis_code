@@ -185,18 +185,24 @@ if __name__ == '__main__':
     ).to(device)
     logging.info('\n{}\n\nMODEL ARCHITECTURE:\n{}\n{}'.format('**' * 95, model,'**' * 95))
     
+    train_mask=homo_graph_train_data.train_mask
+    val_mask=homo_graph_val_data.train_mask
+
+    print('train size:', len(train_mask))
+    print('val size', len(val_mask))
+
     train_dataloader = NeighborLoader(
         homo_graph_train_data,
         num_neighbors=fan_outs,
         batch_size=all_config['TRAIN_CONF']['BATCH_SIZE'],
-        input_nodes=homo_graph_train_data.train_mask,
+        input_nodes=train_mask,
     )
 
     val_dataloader = NeighborLoader(
         homo_graph_val_data,
         num_neighbors=fan_outs,
         batch_size=all_config['TRAIN_CONF']['BATCH_SIZE'],
-        input_nodes=homo_graph_val_data.train_mask,
+        input_nodes=val_mask,
     )
 
     # setup earlystopper to save best validation model

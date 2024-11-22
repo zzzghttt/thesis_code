@@ -3,11 +3,11 @@ import sys
 from util import *
 from table_config import *
 
-def process_project(project_path):
+def process_project(process_path, database):
     # 数据处理
 
     # Get Raw Data
-    class_df, method_df = read_all_data(project_path)
+    class_df, method_df = read_all_data(process_path)
 
     # 转换spark DataFrame 并写入mysql表
     sp_df1 = convert_empty_list_to_NULL(spark.createDataFrame(class_df))
@@ -47,8 +47,8 @@ def process_project(project_path):
 
     edge_index_method_rely_method = match_dict(processed_method_df['index'].tolist(), processed_method_df, processed_method_df, 'dependentMethods', 'methodSignature', False)
 
-    print(edge_index_method_rely_class.shape)
-    print(edge_index_method_rely_method.shape)
+    # print(edge_index_method_rely_class.shape)
+    # print(edge_index_method_rely_method.shape)
 
     # class - rely - class, class - rely - method, class - contain - method
 
@@ -57,6 +57,7 @@ def process_project(project_path):
 
     edge_index_class_rely_class_1 = match_dict(processed_class_df['index'].tolist(), processed_class_df, processed_class_df, 'constructorDeps', 'fullClassName')
     edge_index_class_rely_class_2 = match_list(processed_class_df['index'].tolist(), processed_class_df, processed_class_df, 'importTypes', 'fullClassName')
+    edge_index_class_rely_class_3 = match_list(processed_class_df['index'].tolist(), processed_class_df, processed_class_df, 'fieldDeps', 'fullClassName')
     edge_index_class_method_rely_class = build_class_to_class(edge_index_class_contain_method, edge_index_method_rely_class)
 
     # Test Node
@@ -68,12 +69,14 @@ def process_project(project_path):
 
     # Source Class Node - Test list pair
     test_list, class_list = find_class_by_test(processed_class_df, target_class_node_list)
-    edge_index_class_rely_class = np.concatenate((np.array([test_list, class_list]), edge_index_class_rely_class_1, edge_index_class_rely_class_2, edge_index_class_method_rely_class),axis=1)
+    edge_index_class_rely_class = np.concatenate((np.array([test_list, class_list]), edge_index_class_rely_class_1, edge_index_class_rely_class_2, edge_index_class_rely_class_3, edge_index_class_method_rely_class),axis=1)
     edge_index_class_rely_class = np.unique(edge_index_class_rely_class, axis=1)
 
     # print(edge_index_class_rely_method.shape)
+    print('Edge index:')
     print(edge_index_class_contain_method.shape)
     print(edge_index_class_method_rely_class.shape)
+    print(edge_index_class_rely_class_3.shape)
     print(edge_index_class_rely_class.shape)
 
     # Edge Data: class-class, class-method, method-class, method-method
@@ -84,18 +87,18 @@ def process_project(project_path):
     c2c_sp_df = convert_empty_list_to_NULL(spark.createDataFrame(edge_index_append(edge_index_class_rely_class, 'class_to_class')))
 
 
-    push_to_mysql(new_sp_df1.rdd, 'class_processed_data', class_processed_table_columns)
-    push_to_mysql(new_sp_df2.rdd, 'method_processed_data', method_processed_table_columns)
-    push_to_mysql(sp_df1.rdd, 'class_raw_data', class_table_columns)
-    push_to_mysql(sp_df2.rdd, 'method_raw_data', method_table_columns)
-    push_to_mysql(m2m_sp_df.rdd, 'edge_method_to_method', edge_index_table_columns)
-    push_to_mysql(m2c_sp_df.rdd, 'edge_method_to_class', edge_index_table_columns)
-    push_to_mysql(c2m_sp_df.rdd, 'edge_class_to_method', edge_index_table_columns)
-    push_to_mysql(c2c_sp_df.rdd, 'edge_class_to_class', edge_index_table_columns)
+    push_to_mysql(new_sp_df1.rdd, 'class_processed_data', class_processed_table_columns, database)
+    push_to_mysql(new_sp_df2.rdd, 'method_processed_data', method_processed_table_columns, database)
+    push_to_mysql(sp_df1.rdd, 'class_raw_data', class_table_columns, database)
+    push_to_mysql(sp_df2.rdd, 'method_raw_data', method_table_columns, database)
+    push_to_mysql(m2m_sp_df.rdd, 'edge_method_to_method', edge_index_table_columns, database)
+    push_to_mysql(m2c_sp_df.rdd, 'edge_method_to_class', edge_index_table_columns, database)
+    push_to_mysql(c2m_sp_df.rdd, 'edge_class_to_method', edge_index_table_columns, database)
+    push_to_mysql(c2c_sp_df.rdd, 'edge_class_to_class', edge_index_table_columns, database)
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        project_path = sys.argv[1]
-    else:
-        project_path = '/Users/chenyi/Documents/sag/Final_Project/code/data_deploy/chatunitest-info' 
-    process_project(project_path)
+    process_path = '/Users/chenyi/Documents/sag/Final_Project/code/raw_data'
+    database = sys.argv[1] if len(sys.argv) > 1 else 'train'
+    
+    process_path = os.path.join(process_path, database)
+    process_project(process_path, database)

@@ -20,10 +20,10 @@ logging.basicConfig(
     format='[%(asctime)s] %(filename)s: %(levelname)s: %(message)s'
 )
 
-DATE = sys.argv[1] # format 'yyyyMMdd'
-COUNTRY = sys.argv[2]
-CONFIG_FILE_PATH = sys.argv[3]
-logging.info(f'DATE is {DATE}, config file path is {CONFIG_FILE_PATH}')
+CONFIG_FILE_PATH = sys.argv[1]
+DATA_TYPE = sys.argv[2]
+
+logging.info(f'config file path is {CONFIG_FILE_PATH}')
 
 with open(CONFIG_FILE_PATH, 'r') as file:
     ALL_CONFIG = yaml.safe_load(file)
@@ -34,34 +34,21 @@ logging.info(
         )
     )
 
-NODE_INDEX_MAP_SAVE2FILE_PATH = ALL_CONFIG['DATASET_PATH']['NODE_INDEX_MAP_SAVE2FILE_PATH'].format(DATE=DATE, COUNTRY=COUNTRY)
-EDGE_INDEX_SAVE2FILE_PATH = ALL_CONFIG['DATASET_PATH']['EDGE_INDEX_SAVE2FILE_PATH'].format(DATE=DATE)
-NODE_FEATURE_SAVE2FILE_PATH = ALL_CONFIG['DATASET_PATH']['NODE_FEATURE_SAVE2FILE_PATH'].format(DATE=DATE, COUNTRY=COUNTRY)
-FEATURE_SAVE2FILE_PATH = ALL_CONFIG['DATASET_PATH']['FEATURE_SAVE2FILE_PATH'].format(COUNTRY=COUNTRY)
+EDGE_INDEX_SAVE2FILE_PATH = ALL_CONFIG['DATASET_PATH']['EDGE_INDEX_SAVE2FILE_PATH'].format(DATA_TYPE=DATA_TYPE)
+NODE_FEATURE_SAVE2FILE_PATH = ALL_CONFIG['DATASET_PATH']['NODE_FEATURE_SAVE2FILE_PATH'].format(DATA_TYPE=DATA_TYPE)
+FEATURE_SAVE2FILE_PATH = ALL_CONFIG['DATASET_PATH']['FEATURE_SAVE2FILE_PATH']
 
 TRAIN_CONF = ALL_CONFIG['TRAIN_CONF']
 
-PYG_GRAPH_SAVE2FILE_PATH = ALL_CONFIG['DATASET_PATH']['PYG_GRAPH_SAVE2FILE_PATH'].format(DATE=DATE, COUNTRY=COUNTRY) # PYG Graph 存储路径
+PYG_GRAPH_SAVE2FILE_PATH = ALL_CONFIG['DATASET_PATH']['PYG_GRAPH_SAVE2FILE_PATH'].format(DATA_TYPE=DATA_TYPE)   # PYG Graph 存储路径
 os.makedirs(PYG_GRAPH_SAVE2FILE_PATH, exist_ok=True)
-
-# 获得节点数量
-uid2idx = pq.read_table(NODE_INDEX_MAP_SAVE2FILE_PATH, columns=['idx', 'seller_id', 'label'], memory_map=True).to_pandas()
-uid2idx.sort_values(by=['idx'], ascending=True, inplace=True)
-MAX_IDX = uid2idx['idx'].max() + 1
-logging.info(f'MAX_IDX {MAX_IDX}')
-
-# 获取节点 label
-label = uid2idx['label']
-
-# 获取节点 id
-seller_id = uid2idx['seller_id'].to_numpy()
 
 # 构建异构图
 # load graph data
 hetero_graph_data = HeteroData()
 
 for edge_type in os.listdir(EDGE_INDEX_SAVE2FILE_PATH):
-    tmp_files_path = os.path.join(EDGE_INDEX_SAVE2FILE_PATH, edge_type, f'operation_country={COUNTRY}')
+    tmp_files_path = os.path.join(EDGE_INDEX_SAVE2FILE_PATH, edge_type)
     if not os.path.exists(tmp_files_path):
         logging.info(f'{tmp_files_path} is empty...')
         df = pd.DataFrame(columns=['src_id', 'dst_id', 'weight'])
@@ -80,7 +67,7 @@ for edge_type in os.listdir(EDGE_INDEX_SAVE2FILE_PATH):
     
 # node feature process
 logging.info('add node features...')
-node_feature = pq.read_table(NODE_FEATURE_SAVE2FILE_PATH, columns=['id', 'feature_map_string', 'feature_map_double'], memory_map=True).to_pandas()
+node_feature = pq.read_table(NODE_FEATURE_SAVE2FILE_PATH, columns=['id', 'label', 'feature_map_string', 'feature_map_double'], memory_map=True).to_pandas()
 node_feature.sort_values(by='id', ascending=True, inplace=True) 
 node_feature.reset_index(drop=True, inplace=True)
 logging.info(
@@ -88,6 +75,8 @@ logging.info(
         node_feature.iloc[0, 0], node_feature.iloc[-1, 0], node_feature['id'].shape
         )
     )
+
+label = node_feature['label']
 
 # sparse feature process
 # 转换成 DataFrame 处理
@@ -146,7 +135,6 @@ train_mask, val_mask, train_idx, val_idx = dataset_random_split(label, train_siz
 
 hetero_graph_data['uid'].x = feature
 hetero_graph_data['uid'].y = label
-hetero_graph_data['uid'].seller_id = seller_id
 hetero_graph_data['uid'].train_idx = train_idx
 hetero_graph_data['uid'].val_idx = val_idx
 hetero_graph_data['uid'].train_mask = train_mask

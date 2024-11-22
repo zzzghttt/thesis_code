@@ -16,19 +16,35 @@ os.environ['PYSPARK_DRIVER_PYTHON'] = sys.executable
 spark = SparkSession.builder.master("local[*]").appName("sparkSql").getOrCreate()
 
 # 连接到数据库的函数
-def connect_to_database():
-    return pymysql.connect(
+def connect_to_database(database_name='train'):
+    connection = pymysql.connect(
         host='localhost',
         user='root',
         password='yueyujia520C@',
-        database='cyh',
         charset='utf8mb4',
         cursorclass=pymysql.cursors.DictCursor
     )
+    try:
+        with connection.cursor() as cursor:
+            # 检查数据库是否存在
+            cursor.execute(f"SHOW DATABASES LIKE '{database_name}'")
+            result = cursor.fetchone()
+            if not result:
+                # 如果数据库不存在，则创建
+                cursor.execute(f"CREATE DATABASE {database_name} CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci")
+                print(f"Database '{database_name}' created successfully.")
+        # 切换到指定的数据库
+        connection.select_db(database_name)
+        # print(f"Connected to the database '{database_name}'.")
+        return connection
+    except Exception as e:
+        print("Error occurred:", e)
+        connection.close()
+        raise e
 
 # 获取数据并转换为 pandas DataFrame 的函数
-def pull_data(sql):
-    connection = connect_to_database()
+def pull_data(sql, database='train'):
+    connection = connect_to_database(database)
     try:
         with connection.cursor() as cursor:
             # 执行查询           
@@ -51,11 +67,11 @@ def create_table_if_not_exists(connection, table_name, columns):
     finally:
         connection.commit()
 
-def push_to_mysql(rdd, table_name, columns):
+def push_to_mysql(rdd, table_name, columns, database='train'):
     # 遍历 RDD 中的每个元素
     for partition_rdd in rdd.glom().collect():
         # 为每个分区创建数据库连接
-        connection = connect_to_database()
+        connection = connect_to_database(database)
         try:
             # 检查表是否存在，如果不存在则创建
             create_table_if_not_exists(connection, table_name, columns)
