@@ -1,11 +1,17 @@
-/data
+/graph_data
+/raw_data
+/wandb
+
 **/.vscode
 **/.idea
 **/.DS_Store
 **/__pycache__
+
 
 data_deploy/chatunitest-info
 data_deploy/repo
 
 *.csv
 *.json
+*.pq
+*.pth
