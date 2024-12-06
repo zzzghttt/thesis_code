@@ -23,16 +23,16 @@ TRAIN_CONF:
     WANDB_PROJECT_NAME: "object_construction_node_classify_gnn_model"     # wandb 项目名
     NUM_ClASS: 2
     EVAL_INTERNAL: 5
-    TRAIN_EPOCHS: 100
-    BATCH_SIZE: 128
+    TRAIN_EPOCHS: 300
+    BATCH_SIZE: 512
     LEARNING_RATE: 0.0001
-    WEIGHT_DECAY: 0.001
-    EARLY_STOP: 30
+    WEIGHT_DECAY: 0.0005
+    EARLY_STOP: 50
     TRAIN_SIZE: 1.0
     VAL_SIZE: 0
 # 网络参数
 NETWORK_CONFIG:
-    N_HEADS: 2
+    N_HEADS: 4
     N_LAYERS: 2
-    HIDEN_SIZE: 512
+    HIDEN_SIZE: 128
     FAN_OUTS: [10, 10]

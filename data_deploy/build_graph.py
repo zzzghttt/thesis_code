@@ -1,4 +1,3 @@
-# %%
 import torch
 import sys
 import os
@@ -38,8 +37,9 @@ def build_graph_data(database = 'train'):
 
     edge_index = torch.from_numpy(c2c_sp_df.select('src_id', 'dst_id').toPandas().values).T
 
-    test_edge_index, test_node_map = remap_node_edge(test_list, edge_index)
-    class_edge_index, class_node_map = remap_node_edge(class_list, edge_index)
+    # TODO: remap node edge by both test_lsit and class list
+    test_edge_index, test_node_map, test_group_ids = remap_node_edge(test_list, edge_index)
+    class_edge_index, class_node_map, class_group_ids = remap_node_edge(class_list, edge_index)
 
     class_edge_index_t = np.array(class_edge_index).T
     test_edge_index_t = np.array(test_edge_index).T
@@ -54,6 +54,7 @@ def build_graph_data(database = 'train'):
             labels[src_id] = 1
             labels[dst_id] = 1
     # print(labels)
+    # sum(labels) == 1315 (total 1327)
 
     node_feature_string = class_processed_data.select(
         'packageName',
@@ -93,7 +94,7 @@ def build_graph_data(database = 'train'):
     return node_feature, edge_index
 
 
-def save_data(node_feature, edge_index, save_path='/Users/chenyi/Documents/sag/Final_Project/code/data/inference'):
+def save_data(node_feature, edge_index, save_path='/Users/chenyi/Documents/sag/Final_Project/code/graph_data/inference'):
     # Save Data
     node_feature['feature_map_string'] = node_feature['feature_map_string'].apply(eval)
     node_feature['feature_map_double'] = node_feature['feature_map_double'].apply(eval)

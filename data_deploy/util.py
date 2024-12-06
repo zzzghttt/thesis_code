@@ -248,6 +248,7 @@ def find_class_by_test(df, test_id_list) -> list:
 def remap_node_edge(node_list, edge_index, k_hop=2):
     # 初始化新的节点特征和边列表
     new_edge_index = []
+    group_ids = []
     node_map = {}  # 记录旧节点到新节点的映射
     current_idx = 0
     
@@ -274,7 +275,9 @@ def remap_node_edge(node_list, edge_index, k_hop=2):
             new_edge_index = remapped_edges
         else:
             new_edge_index = torch.cat([new_edge_index, remapped_edges], dim=1)
+        
+        group_ids += [src_node] * len(local_map)
     
     new_edge_index = np.unique(np.array(new_edge_index), axis=1).tolist()
 
-    return new_edge_index, node_map
+    return new_edge_index, node_map, group_ids

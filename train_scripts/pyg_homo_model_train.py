@@ -155,7 +155,7 @@ if __name__ == '__main__':
         )
 
     # model save name
-    MODEL_NAME = f'''{all_config['TRAIN_CONF']['CONV_TYPE']}_{all_config['TRAIN_CONF']['BATCH_SIZE']}_{all_config['TRAIN_CONF']['LEARNING_RATE']}_{all_config['TRAIN_CONF']['WEIGHT_DECAY']}_{all_config['NETWORK_CONFIG']['N_HEADS']}_{all_config['NETWORK_CONFIG']['N_LAYERS']}_{all_config['NETWORK_CONFIG']['HIDEN_SIZE']}_{all_config['NETWORK_CONFIG']['FAN_OUTS']}'''
+    MODEL_NAME = f'''{all_config['TRAIN_CONF']['CONV_TYPE']}_{all_config['TRAIN_CONF']['BATCH_SIZE']}_{all_config['TRAIN_CONF']['LEARNING_RATE']}_{all_config['TRAIN_CONF']['WEIGHT_DECAY']}_{all_config['NETWORK_CONFIG']['N_HEADS']}_{all_config['NETWORK_CONFIG']['N_LAYERS']}_{all_config['NETWORK_CONFIG']['HIDEN_SIZE']}_{all_config['NETWORK_CONFIG']['FAN_OUTS']}_{start_time}'''
     GRAPH_TYPE = all_config['TRAIN_CONF']['GRAPH_TYPE']
     MODEL_TYPE = all_config['TRAIN_CONF']['CONV_TYPE']
     assert (GRAPH_TYPE == "Homo") and (MODEL_TYPE in ["GCN", "SAGE", "GAT"])
@@ -175,7 +175,7 @@ if __name__ == '__main__':
     
    # init wandb
     wandb_project_name = all_config['TRAIN_CONF']['WANDB_PROJECT_NAME']
-    wandb_name = f'''OCG_GNN_Model_{all_config['TRAIN_CONF']['CONV_TYPE']}_{int(time.time())}'''
+    wandb_name = f'''OCG_GNN_Model_{all_config['TRAIN_CONF']['CONV_TYPE']}_{start_time}_{int(time.time())}'''
 
     wandb.init(project=wandb_project_name, name=wandb_name, id=wandb_name, config=all_config)
 

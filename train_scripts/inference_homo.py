@@ -68,7 +68,7 @@ if __name__ == '__main__':
     
     fan_outs = all_config['NETWORK_CONFIG']['FAN_OUTS']
     
-    model_path = all_config['DATASET_PATH']['MODEL_SAVE_PATH']
+    model_path = all_config['DATASET_PATH']['MODEL_SAVE2FILE_PATH']
     state_dict = torch.load(model_path)
     
     model = Graph_Model(

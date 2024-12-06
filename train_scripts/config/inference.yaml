@@ -1,60 +1,30 @@
 # 数据相关的路径
 DATASET_PATH:
-    # 节点、节点特征、边关系对应 hdfs 路径
-    NODE_INDEX_MAP_HDFS_FILEPATH: "hdfs://harunava/default/user/tiger/warehouse/ies_antispam.db/ecom_seller_uid_reindex_for_onboarding_model_inference_di/date={DATE}/operation_country={COUNTRY}/"
-    NODE_FEATURE_HDFS_FILEPATH: "hdfs://harunava/default/user/tiger/warehouse/ies_antispam.db/seller_feature_for_onboarding_model_inference_di/date={DATE}/operation_country={COUNTRY}/"
-    EDGE_INDEX_HDFS_PATH: "hdfs://harunava/default/user/tiger/warehouse/ies_antispam.db/ecom_seller_edge_reindex_for_onboarding_model_inference_di/date={DATE}/"
-
     # EDGE_INDEX 下具体边类型分区名称
     EDGE_TYPES:           
-        - register_ip
-        - register_did
-        - company_register
-        - personal_register
-        - mobile
-        - email
-
+        - class_to_class
     # ByteNAS 路径, 构图数据先拉取到本地磁盘
-    SAVE2FILE_ROOTPATH:  "/mnt/bn/global-ecom-risk-management-sharenas/mlx/users/chenyinghao/onboarding_model" # 存储路径的根目录
-    NODE_INDEX_MAP_SAVE2FILE_PATH: "/mnt/bn/global-ecom-risk-management-sharenas/mlx/users/chenyinghao/onboarding_model/dataset/node_index/date={DATE}/operation_country={COUNTRY}/"
-    NODE_FEATURE_SAVE2FILE_PATH: "/mnt/bn/global-ecom-risk-management-sharenas/mlx/users/chenyinghao/onboarding_model/dataset/node_feature/date={DATE}/operation_country={COUNTRY}/"
-    EDGE_INDEX_SAVE2FILE_PATH: "/mnt/bn/global-ecom-risk-management-sharenas/mlx/users/chenyinghao/onboarding_model/dataset/edge_index/date={DATE}/"
-   
+    SAVE2FILE_ROOTPATH:  "/Users/chenyi/Documents/sag/Final_Project/code/graph_data" # 存储路径的根目录
+    NODE_FEATURE_SAVE2FILE_PATH: "/Users/chenyi/Documents/sag/Final_Project/code/graph_data/{DATA_TYPE}/node_feature" # 存储路径的根目录
+    EDGE_INDEX_SAVE2FILE_PATH: "/Users/chenyi/Documents/sag/Final_Project/code/graph_data/{DATA_TYPE}/edge_index"
     # PYG Graph, ByteNAS 存储路径
-    PYG_GRAPH_SAVE2FILE_PATH: "/mnt/bn/global-ecom-risk-management-sharenas/mlx/users/chenyinghao/onboarding_model/pyg_graph/date={DATE}/operation_country={COUNTRY}"
-
+    PYG_GRAPH_SAVE2FILE_PATH: "/Users/chenyi/Documents/sag/Final_Project/code/graph_data/pyg_graph/{DATA_TYPE}"
     # Feature Process 存储路径
-    FEATURE_SAVE2FILE_PATH: "/mnt/bn/global-ecom-risk-management-sharenas/mlx/users/chenyinghao/onboarding_model/model_res/operation_country={COUNTRY}"
-
-    # Model Path
-
-    # GAT
-    MODEL_SAVE2FILE_PATH: "/mnt/bn/global-ecom-risk-management-sharenas/mlx/users/chenyinghao/onboarding_model/model_res/GAT/operation_country=ID/checkpoints/ID_GAT_128_1e-05_0_4_2_512_[15, 15]_early_stop_202406240834.pth"
-    
-    # GCN
-    # MODEL_SAVE2FILE_PATH: "/mnt/bn/global-ecom-risk-management-sharenas/mlx/users/chenyinghao/onboarding_model/model_res/GCN/operation_country=ID/checkpoints/ID_GCN_128_1e-05_0_4_2_512_[15, 15]_early_stop_202406210706.pth"
-    
-    # SAGE
-    # MODEL_SAVE2FILE_PATH: "/mnt/bn/global-ecom-risk-management-sharenas/mlx/users/chenyinghao/onboarding_model/model_res/SAGE/operation_country=ID/checkpoints/ID_SAGE_128_1e-05_0_4_2_512_[15, 15]_early_stop_202406231045.pth"
-
-
-    # Predict Path
-    # PREDICT_SAVE2FILE_PATH: "hdfs://harunava/home/byte_magellan_va/user/chenyinghao/onboarding_gnn/model_predict/VN"
+    FEATURE_SAVE2FILE_PATH: "/Users/chenyi/Documents/sag/Final_Project/code/graph_data/feature_processed/"
+    # Model, ByteNAS 存储路径
+    MODEL_SAVE2FILE_PATH: "/Users/chenyi/Documents/sag/Final_Project/code/graph_data/model_res/GCN/checkpoints/GCN_512_0.0001_0.0005_4_2_128_[10, 10]_202411222155_early_stop_202411222155.pth"
+    MODEL_THRESHOLD: 0.9858
 
 # 训练参数
 TRAIN_CONF:
     GRAPH_TYPE: "Homo"                      # "Hetero", "Homo"
-    CONV_TYPE: "GAT"                          # Model Type  Model List: ["GCN", "GRAPHSAGE", "GIN", "GAT", "HGT", "GAGA"]
-    FEATURE_WITH_MMAP: false                  # MMAP 存储 feature，可能导致训练速度降低，uid数量较少时建议关闭
-    LABEL_TOPN: 0.999                         # categorical feature select top n% category, tail 1-n% others, =-1 will disable
-    DENSE_FEATURE_NORMALIZE: true
-    BATCH_SIZE: 128
-    TRAIN_SIZE: 1.0
-    VAL_SIZE: 0.0
+    CONV_TYPE: "GCN"                          # Model Type  Model List: ["GCN", "GRAPHSAGE", "GIN", "GAT", "HGT", "SAGE"]
+    BATCH_SIZE: 512
 
 # 网络参数
 NETWORK_CONFIG:
-    N_HEADS: 4                            
+    N_HEADS: 4
     N_LAYERS: 2
-    HIDEN_SIZE: 512
-    FAN_OUTS: [15, 15]
+    HIDEN_SIZE: 128
+    FAN_OUTS: [10, 10]
+

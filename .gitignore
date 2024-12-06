@@ -7,8 +7,6 @@
 **/.DS_Store
 **/__pycache__
 
-
-data_deploy/chatunitest-info
 data_deploy/repo
 
 *.csv
