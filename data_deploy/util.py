@@ -245,30 +245,41 @@ def find_class_by_test(df, test_id_list) -> list:
             test_list.append(test_id)
     return test_list, class_list
 
-def remap_node_edge(node_list, edge_index, k_hop=2):
+def remap_node_edge(class_list, test_list, edge_index, k_hop=2):
     # 初始化新的节点特征和边列表
     new_edge_index = []
     group_ids = []
+    labels = []
     node_map = {}  # 记录旧节点到新节点的映射
     current_idx = 0
     
     # 遍历每个源节点，生成其两跳子图
-    for src_node in node_list:
+    for i, src_node in enumerate(class_list):
+        test_node = test_list[i]
         # 使用 k_hop_subgraph 提取两跳子图
-        sub_nodes, sub_edge_index, _, _ = k_hop_subgraph(
+        sub_src_nodes, sub_src_edge_index, _, _ = k_hop_subgraph(
             src_node, k_hop, edge_index, flow='target_to_source', relabel_nodes=False)
         
+        sub_test_nodes, _, _, _ = k_hop_subgraph(
+            test_node, k_hop, edge_index, flow='target_to_source', relabel_nodes=False)
+
+        sub_labels = []
         # 为当前子图的节点重新分配新的索引
         local_map = {}  # 用于存储子图中重新编号的节点映射
-        for node in sub_nodes.tolist():
+        for node in sub_src_nodes.tolist():
             if node not in local_map:
                 node_map[current_idx] = node
                 local_map[node] = current_idx
                 current_idx += 1
+
+                if node == src_node or node in sub_test_nodes.tolist():
+                    sub_labels.append(1)
+                else:
+                    sub_labels.append(0)
         
         # 重新映射边    
         remapped_edges = torch.tensor([[local_map[edge[0]], local_map[edge[1]]]
-                                       for edge in sub_edge_index.t().tolist()], dtype=torch.long).t()
+                                       for edge in sub_src_edge_index.t().tolist()], dtype=torch.long).t()
         # print(src_node, '\n', sub_nodes, '\n', sub_edge_index, '\n', remapped_edges,  '\n', '-'*20)
     
         if new_edge_index == []:
@@ -276,8 +287,9 @@ def remap_node_edge(node_list, edge_index, k_hop=2):
         else:
             new_edge_index = torch.cat([new_edge_index, remapped_edges], dim=1)
         
+        labels += sub_labels
         group_ids += [src_node] * len(local_map)
     
     new_edge_index = np.unique(np.array(new_edge_index), axis=1).tolist()
 
-    return new_edge_index, node_map, group_ids
+    return new_edge_index, node_map, group_ids, labels

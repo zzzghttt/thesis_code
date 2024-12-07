@@ -35,26 +35,10 @@ def build_graph_data(database = 'train'):
     test_list, class_list = find_class_by_test(class_processed_data.toPandas(), target_class_node_list)
     print(test_list, class_list)
 
-    edge_index = torch.from_numpy(c2c_sp_df.select('src_id', 'dst_id').toPandas().values).T
+    raw_edge_index = torch.from_numpy(c2c_sp_df.select('src_id', 'dst_id').toPandas().values).T
 
-    # TODO: remap node edge by both test_lsit and class list
-    test_edge_index, test_node_map, test_group_ids = remap_node_edge(test_list, edge_index)
-    class_edge_index, class_node_map, class_group_ids = remap_node_edge(class_list, edge_index)
-
-    class_edge_index_t = np.array(class_edge_index).T
-    test_edge_index_t = np.array(test_edge_index).T
-    test_edge_index_ori = [[test_node_map[src], test_node_map[dst]] for src, dst in test_edge_index_t]
-
-    labels = np.zeros(len(class_node_map))
-
-    for pair in class_edge_index_t:
-        src_id = pair[0]
-        dst_id = pair[1]
-        if [class_node_map[src_id], class_node_map[dst_id]] in test_edge_index_ori:
-            labels[src_id] = 1
-            labels[dst_id] = 1
-    # print(labels)
-    # sum(labels) == 1315 (total 1327)
+    # remap node edge by both test_lsit and class list
+    class_edge_index, class_node_map, group_ids, labels = remap_node_edge(class_list, test_list, raw_edge_index)
 
     node_feature_string = class_processed_data.select(
         'packageName',
@@ -73,23 +57,25 @@ def build_graph_data(database = 'train'):
     ).toPandas().iloc[list(class_node_map.values())]
 
     # node feature
-    columns_1 = ['id', 'label', 'feature_map_string', 'feature_map_double']
+    columns_1 = ['id', 'label', 'feature_map_string', 'feature_map_double', 'group_id']
     node_feature = pd.DataFrame(columns=columns_1)
     node_feature['id'] = list(class_node_map.keys())
     node_feature['label'] = labels.tolist()
     node_feature['feature_map_string'] = node_feature_string.values.tolist()
     node_feature['feature_map_double'] = node_feature_double.values.tolist()
-    node_feature = node_feature.astype({'id': int, 'label': int, 'feature_map_string': 'string', 'feature_map_double': 'string'})
+    node_feature['group_id'] = group_ids
+    node_feature = node_feature.astype({'id': int, 'label': int, 'feature_map_string': 'string', 'feature_map_double': 'string', 'group_id': int})
 
     # edge_index
-    columns_2 = ['src_id', 'dst_id', 'weight', 'type']
+    columns_2 = ['src_id', 'dst_id', 'weight', 'type', 'group_id']
     edge_index = pd.DataFrame(columns=columns_2)
     edge_index['src_id'] = class_edge_index[0]
     edge_index['dst_id'] = class_edge_index[1]
     edge_index['weight'] = 1
     edge_index['weight'] = edge_index['weight'].astype(float)
     edge_index['type'] = 'class_to_class'
-    edge_index = edge_index.astype({'src_id': int, 'dst_id': int, 'weight': float, 'type': 'string'})
+    edge_index['group_id'] = group_ids
+    edge_index = edge_index.astype({'src_id': int, 'dst_id': int, 'weight': float, 'type': 'string', 'group_id': int})
 
     return node_feature, edge_index
 
