@@ -54,7 +54,7 @@ def dataset_random_split(label, seed=717, train_size=0.8, val_size=0.2):
     train_mask[train_idx] = True
     val_mask[val_idx] = True
     
-    return torch.tensor(train_mask), torch.tensor(val_mask), train_idx, val_idx
+    return torch.tensor(train_mask), torch.tensor(val_mask), torch.tensor(train_idx), torch.tensor(val_idx)
 
 def seed_everything(seed: int) -> None:
     r"""Sets the seed for generating random numbers in :pytorch:`PyTorch`,

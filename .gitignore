@@ -1,13 +1,11 @@
-/graph_data
-/raw_data
 /wandb
+/notebook
+/pretrain_graph_model
 
 **/.vscode
 **/.idea
 **/.DS_Store
 **/__pycache__
-
-data_deploy/repo
 
 *.csv
 *.json

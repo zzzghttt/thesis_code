@@ -18,7 +18,7 @@ logging.basicConfig(
 
 def inference(val_dataloader, model, device):
     model.eval()
-    nodes, probs = [], []
+    group_id, nodes, probs = [], [], []
 
     with torch.no_grad():
         for sample_data in val_dataloader:
@@ -27,11 +27,16 @@ def inference(val_dataloader, model, device):
 
             y_pre = model(x=sample_data.x, edge_index=sample_data.edge_index)[: batch_node_num]
             y_id = sample_data.n_id[: batch_node_num]
+            y_gid = sample_data.group_id[: batch_node_num]
 
+            group_id += [i for i in y_gid.cpu().numpy()]
             nodes += [i for i in y_id.cpu().numpy()]
             probs += [i for i in y_pre.squeeze(dim=-1).cpu().detach().numpy()]
         
-        return nodes, probs
+        return group_id, nodes, probs
+    
+def filter(model_predict, predict_threshold):
+    return model_predict.loc[model_predict['probs'] > predict_threshold]
     
 if __name__ == '__main__':
     config_file_path = sys.argv[1]
@@ -69,6 +74,7 @@ if __name__ == '__main__':
     fan_outs = all_config['NETWORK_CONFIG']['FAN_OUTS']
     
     model_path = all_config['DATASET_PATH']['MODEL_SAVE2FILE_PATH']
+    model_threshold = all_config['DATASET_PATH']['MODEL_THRESHOLD']
     state_dict = torch.load(model_path)
     
     model = Graph_Model(
@@ -87,8 +93,14 @@ if __name__ == '__main__':
         input_nodes=homo_graph_data.train_mask,
     )
     
-    nodes, probs = inference(train_dataloader, model, device)
-    df = pd.DataFrame({'node_id': nodes, 'probs': probs})
+    group_id, nodes, probs = inference(train_dataloader, model, device)
+    df = pd.DataFrame({'group_id': group_id, 'node_id': nodes, 'probs': probs})
+
+    origin_size = df.shape[0]
+    df = filter(df, model_threshold)
+    filtered_size = df.shape[0]
+
     df.to_csv(f'model_result_{date_time}.csv')
-    
+    print(f'Inference Finished! \norigin size: {origin_size}, filtered size: {filtered_size}\nSave to model_result_{date_time}.csv')
+
     # run_command(f'''hdfs dfs -put 'model_result_{inference_date}.csv' {all_config['DATASET_PATH']['PREDICT_SAVE2FILE_PATH']}''')

@@ -54,7 +54,7 @@ for edge_type in ALL_CONFIG['DATASET_PATH']['EDGE_TYPES']:
         df = pd.DataFrame(columns=['src_id', 'dst_id', 'weight'])
     else:
         logging.info(f'LOADING {edge_type} from {tmp_files_path}...')
-        df = pq.read_table(tmp_files_path, columns=['src_id', 'dst_id', 'weight'], memory_map=True)
+        df = pq.read_table(tmp_files_path, columns=['src_id', 'dst_id', 'weight', 'group_id'], memory_map=True)
     
     src = df['src_id'].to_numpy()
     dst = df['dst_id'].to_numpy()
@@ -67,7 +67,7 @@ for edge_type in ALL_CONFIG['DATASET_PATH']['EDGE_TYPES']:
     
 # node feature process
 logging.info('add node features...')
-node_feature = pq.read_table(NODE_FEATURE_SAVE2FILE_PATH, columns=['id', 'label', 'feature_map_string', 'feature_map_double'], memory_map=True).to_pandas()
+node_feature = pq.read_table(NODE_FEATURE_SAVE2FILE_PATH, columns=['id', 'label', 'feature_map_string', 'feature_map_double', 'group_id'], memory_map=True).to_pandas()
 node_feature.sort_values(by='id', ascending=True, inplace=True) 
 node_feature.reset_index(drop=True, inplace=True)
 logging.info(
@@ -75,6 +75,8 @@ logging.info(
         node_feature.iloc[0, 0], node_feature.iloc[-1, 0], node_feature['id'].shape
         )
     )
+
+group_id = node_feature['group_id']
 
 # 获取节点 label
 label = node_feature['label']
@@ -142,10 +144,12 @@ dense_feature = torch.tensor(tmp_uid_dense_feats, dtype=torch.float)
 cat_feature = torch.tensor(tmp_uid_cat_feats, dtype=torch.int)
 feature = torch.cat((dense_feature, cat_feature), dim=1)
 label = torch.tensor(label, dtype=torch.float)
+group_id = torch.tensor(group_id, dtype=torch.int)
 train_mask, val_mask, train_idx, val_idx = dataset_random_split(label, train_size=TRAIN_CONF['TRAIN_SIZE'], val_size=TRAIN_CONF['VAL_SIZE'])
 
 hetero_graph_data['node'].x = feature
 hetero_graph_data['node'].y = label
+hetero_graph_data['node'].group_id = group_id
 hetero_graph_data['node'].train_idx = train_idx
 hetero_graph_data['node'].val_idx = val_idx
 hetero_graph_data['node'].train_mask = train_mask

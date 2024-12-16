@@ -1,0 +1,19 @@
+{"time":"2024-12-07T23:47:27.019025+08:00","level":"INFO","msg":"using version","core version":"0.18.7"}
+{"time":"2024-12-07T23:47:27.01908+08:00","level":"INFO","msg":"created symlink","path":"/Users/chenyi/Documents/sag/Final_Project/code/train_scripts/wandb/run-20241207_234727-OCG_GNN_Model_GCN_202412072347_1733586446/logs/debug-core.log"}
+{"time":"2024-12-07T23:47:27.129191+08:00","level":"INFO","msg":"created new stream","id":"OCG_GNN_Model_GCN_202412072347_1733586446"}
+{"time":"2024-12-07T23:47:27.129225+08:00","level":"INFO","msg":"stream: started","id":"OCG_GNN_Model_GCN_202412072347_1733586446"}
+{"time":"2024-12-07T23:47:27.129245+08:00","level":"INFO","msg":"handler: started","stream_id":"OCG_GNN_Model_GCN_202412072347_1733586446"}
+{"time":"2024-12-07T23:47:27.12926+08:00","level":"INFO","msg":"sender: started","stream_id":"OCG_GNN_Model_GCN_202412072347_1733586446"}
+{"time":"2024-12-07T23:47:27.129243+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"OCG_GNN_Model_GCN_202412072347_1733586446"}
+{"time":"2024-12-07T23:47:27.660413+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-12-07T23:47:50.972829+08:00","level":"INFO","msg":"stream: closing","id":"OCG_GNN_Model_GCN_202412072347_1733586446"}
+{"time":"2024-12-07T23:47:50.972864+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-12-07T23:47:50.973185+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-12-07T23:47:51.338334+08:00","level":"WARN","msg":"No job ingredients found, not creating job artifact"}
+{"time":"2024-12-07T23:47:51.338373+08:00","level":"WARN","msg":"No source type found, not creating job artifact"}
+{"time":"2024-12-07T23:47:51.338386+08:00","level":"INFO","msg":"sender: sendDefer: no job artifact to save"}
+{"time":"2024-12-07T23:47:52.63533+08:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-12-07T23:47:53.178024+08:00","level":"INFO","msg":"handler: closed","stream_id":"OCG_GNN_Model_GCN_202412072347_1733586446"}
+{"time":"2024-12-07T23:47:53.178037+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":"OCG_GNN_Model_GCN_202412072347_1733586446"}
+{"time":"2024-12-07T23:47:53.178052+08:00","level":"INFO","msg":"sender: closed","stream_id":"OCG_GNN_Model_GCN_202412072347_1733586446"}
+{"time":"2024-12-07T23:47:53.178281+08:00","level":"INFO","msg":"stream: closed","id":"OCG_GNN_Model_GCN_202412072347_1733586446"}
