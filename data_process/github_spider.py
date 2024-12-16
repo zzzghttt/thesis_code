@@ -4,7 +4,7 @@ import time
 
 
 # Github API token
-TOKEN = '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'
+TOKEN = 'xxx'
 
 # Github API URL
 URL = 'https://api.github.com/search/repositories'
