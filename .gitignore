@@ -1,6 +1,6 @@
-/wandb
 /notebook
 /pretrain_graph_model
+**/wandb
 
 **/.vscode
 **/.idea
