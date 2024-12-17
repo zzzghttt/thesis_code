@@ -33,7 +33,7 @@ def process(pred_df: pd.DataFrame, class_node_map: dict):
         if neiborFullClassName not in result[projectName][targetFullClassName]:
             result[projectName][targetFullClassName].append(neiborFullClassName)
         
-        print(projectName, '|', targetFullClassName, '|', neiborFullClassName)
+        print(index, '|', projectName, '|', targetFullClassName, '|', neiborFullClassName)
 
     print("Done!")
 

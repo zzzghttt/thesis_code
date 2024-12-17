@@ -29,8 +29,9 @@ def build_graph_data(database = 'train'):
     raw_edge_index = torch.from_numpy(c2c_sp_df.select('src_id', 'dst_id').toPandas().values).T
 
     if database == 'inference':
-        class_list = class_processed_data.select('index').toPandas()['index'].tolist()
-        class_edge_index, class_node_map, group_ids, labels = remap_node_edge(raw_edge_index, class_list)
+        target_class_node = class_processed_data.where('isTest == 0').distinct()
+        target_class_node_list = target_class_node.toPandas()['index'].tolist()
+        class_edge_index, class_node_map, group_ids, labels = remap_node_edge(raw_edge_index, target_class_node_list)
     else:
         # Test Node
         target_class_node = class_processed_data.where('isTest == 1').distinct()
