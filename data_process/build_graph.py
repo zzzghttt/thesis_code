@@ -7,10 +7,11 @@ from util import *
 from table_config import *
 import pyarrow as pa
 import pyarrow.parquet as pq
+from tqdm import tqdm
 
 # Graph Data (Use Class Node Only)
 
-def build_graph_data(database = 'train'):
+def build_graph_data(database = 'train', api_key_path=None):
     # use class to class edge
     class_processed_data = pull_data(
         '''
@@ -45,23 +46,72 @@ def build_graph_data(database = 'train'):
     
     node_feature_idx = list(class_node_map.values())
 
-    # TODO: use embeddings for category features
     node_feature_string = class_processed_data.select(
         'moduleName',
-        'packageName',
-        'className'
     ).toPandas().iloc[node_feature_idx]
 
-    node_feature_double = class_processed_data.select(
-        'line_count', 
-        'import_count', 
-        'super_class_count',
-        'implement_count',
-        'method_count',
-        'constructor_count',
-        'constructor_dep_count',
-        'sub_class_count'
-    ).toPandas().iloc[node_feature_idx]
+    # Use embeddings for identifiers and source code
+    if api_key_path:
+        all_node_features = []
+        embedding_map = {}
+        
+        # 获取 embedding
+        for idx in tqdm(node_feature_idx):
+            package_name = class_processed_data.select('packageName').toPandas().iloc[idx].values[0]
+            class_name = class_processed_data.select('className').toPandas().iloc[idx].values[0]
+            class_declaration_code = class_processed_data.select('classDeclarationCode').toPandas().iloc[idx].values[0]
+
+            
+            package_name_embedding = get_embedding(package_name, api_key_path) if package_name not in embedding_map else embedding_map[package_name]
+            class_name_embedding = get_embedding(class_name, api_key_path) if class_name not in embedding_map else embedding_map[class_name]
+            class_declaration_code_embedding = get_embedding(class_declaration_code, api_key_path) if class_declaration_code not in embedding_map else embedding_map[class_declaration_code]
+
+            # 如果嵌入成功，将其与数值特征合并
+            if package_name_embedding and class_name_embedding and class_declaration_code_embedding:
+                embedding_map[package_name] = package_name_embedding
+                embedding_map[class_name] = class_name_embedding
+                embedding_map[class_declaration_code] = class_declaration_code_embedding
+                
+                # 获取该节点的数值特征
+                numerical_features = class_processed_data.select(
+                    'line_count', 
+                    'import_count', 
+                    'super_class_count',
+                    'implement_count',
+                    'method_count',
+                    'constructor_count',
+                    'constructor_dep_count',
+                    'sub_class_count'
+                ).toPandas().iloc[idx].values
+                
+                # 将 embeddings 合并到数值特征中（假设每个嵌入是 1536 维）
+                embeddings = np.concatenate([
+                    package_name_embedding,
+                    class_name_embedding,
+                    class_declaration_code_embedding
+                ], axis=0)
+                
+                # 将合并后的特征添加到列表中
+                combined_features = np.concatenate([numerical_features, embeddings])
+                all_node_features.append(combined_features)
+            else:
+                print(f"Failed to get embeddings for node at index {idx}")
+
+        node_feature_double = pd.DataFrame(all_node_features)
+        print(f"Combined feature vector size: {node_feature_double.shape}")
+    else:
+        node_feature_double = class_processed_data.select(
+            'line_count', 
+            'import_count', 
+            'super_class_count',
+            'implement_count',
+            'method_count',
+            'constructor_count',
+            'constructor_dep_count',
+            'sub_class_count'
+        ).toPandas().iloc[node_feature_idx]
+
+        print(f"Node feature double vector size: {node_feature_double.shape}")
 
     # node feature
     columns_1 = ['id', 'label', 'feature_map_string', 'feature_map_double', 'group_id']
@@ -103,10 +153,11 @@ def save_data(node_feature, edge_index, class_node_map, save_path):
     print('Data Saved!')
 
 if __name__ == '__main__':
+    api_key_path = "/Users/chenyi/Documents/sag/Final_Project/code/API-KEY.txt"
     save_path = '/Users/chenyi/Documents/sag/Final_Project/data/graph_data'
     database = sys.argv[1] if len(sys.argv) > 1 else 'train' # [train , test, eval, inference]
 
-    node_feature, edge_index, class_node_map = build_graph_data(database=database)
+    node_feature, edge_index, class_node_map = build_graph_data(database=database, api_key_path=api_key_path)
 
     save_path = os.path.join(save_path, database)
     save_data(node_feature, edge_index, class_node_map, save_path)

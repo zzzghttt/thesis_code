@@ -1,0 +1,39 @@
+'package org.apache.commons.cli;
+\nimport java.net.MalformedURLException;\nimport java.net.URL;\nimport org.apache.commons.cli.ParseException;\nimport org.mockito.*;\nimport org.junit.jupiter.api.*;\nimport static org.mockito.Mockito.*;\nimport static org.junit.jupiter.api.Assertions.*;\nimport org.junit.jupiter.api.extension.ExtendWith;\nimport org.mockito.junit.jupiter.MockitoExtension;\nimport java.io.File;\nimport java.io.FileInputStream;\nimport java.io.FileNotFoundException;\nimport java.util.Date;
+\npublic class TypeHandler_createURL_6_0_Test {
+
+    @Test
+    public void testCreateURL_ValidURL() throws ParseException {
+        String validURL = "http://www.example.com";
+        URL url = TypeHandler.createURL(validURL);
+        assertEquals(validURL, url.toString());
+    }
+
+    @Test
+    public void testCreateURL_InvalidURL() {
+        String invalidURL = "invalid_url";
+        ParseException exception = assertThrows(ParseException.class, () -> {
+            TypeHandler.createURL(invalidURL);
+        });
+        assertEquals("Unable to parse the URL: " + invalidURL, exception.getMessage());
+    }
+
+    @Test
+    public void testCreateURL_EmptyString() {
+        String emptyURL = "";
+        ParseException exception = assertThrows(ParseException.class, () -> {
+            TypeHandler.createURL(emptyURL);
+        });
+        assertEquals("Unable to parse the URL: " + emptyURL, exception.getMessage());
+    }
+
+    @Test
+    public void testCreateURL_NullString() {
+        String nullURL = null;
+        ParseException exception = assertThrows(ParseException.class, () -> {
+            TypeHandler.createURL(nullURL);
+        });
+        assertEquals("Unable to parse the URL: null", exception.getMessage());
+    }
+}
+'

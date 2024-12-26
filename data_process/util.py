@@ -9,6 +9,7 @@ from pyspark.sql.functions import when, col, size
 from pyspark.sql import SparkSession, Row
 from torch_geometric.utils import to_undirected, k_hop_subgraph
 from table_config import *
+import openai
 
 os.environ['PYSPARK_PYTHON'] = sys.executable
 os.environ['PYSPARK_DRIVER_PYTHON'] = sys.executable
@@ -300,3 +301,19 @@ def remap_node_edge(edge_index, class_list, test_list=None, k_hop=2):
     new_edge_index = np.unique(np.array(new_edge_index), axis=1).tolist()
 
     return new_edge_index, node_map, group_ids, labels
+
+
+def get_embedding(text: str, key_path: str = 'openai_api_key.txt'):
+    """使用 OpenAI API 获取标识符的嵌入"""
+    with open(key_path, 'r') as f:
+        openai.api_key = f.read().strip()
+    try:
+        response = openai.Embedding.create(
+            model="text-embedding-3-small",
+            input=text[:4096],
+            dimensions=64
+        )
+        # 返回嵌入
+        return response['data'][0]['embedding']
+    except Exception as e:
+        raise ValueError("Failed to get embeddings for package name, class name, or class declaration")

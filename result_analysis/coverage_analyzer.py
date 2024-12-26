@@ -173,17 +173,32 @@ def aggregate_coverage_data(coverage_data_list: List[Dict[str, int]]) -> Dict[st
     return calculate_coverage(aggregated_data)
 
 
+def find_xml(jacocoResultPath, module_name):
+    
+    for root, dirs, files in os.walk(os.path.join(jacocoResultPath, module_name)):
+        for file in files:
+            if file == 'jacoco.xml':
+                return os.path.join(root, file)
+    return None
+
+
 def muti_module_extract(tmpOutputPath, jacocoResultPath):
     modules = [d for d in os.listdir(tmpOutputPath) if os.path.isdir(os.path.join(tmpOutputPath, d))]
     coverage_data_list = []
 
     for module in modules:
-        module_json_path = os.path.join(tmpOutputPath, module, 'tasklist.json')
-        module_xml_path = os.path.join(jacocoResultPath, module, 'target', 'site', 'jacoco', 'jacoco.xml')
+        module_json_path = os.path.join(tmpOutputPath, module, 'focal_methods_sampled.csv')
+        # module_xml_path = os.path.join(jacocoResultPath, module, 'target', 'site', 'jacoco', 'jacoco.xml')
+        module_xml_path = find_xml(jacocoResultPath, module)
 
         if os.path.exists(module_json_path) and os.path.exists(module_xml_path):
-            with open(module_json_path, 'r') as json_file:
-                methods_dict = json.load(json_file)
+            if module_json_path.endswith('.csv'):
+                methods_dict = process_csv_to_dict(module_json_path)
+            else:
+                with open(module_json_path, 'r') as json_file:
+                    methods_dict = json.load(json_file)
+            # with open(module_json_path, 'r') as json_file:
+            #     methods_dict = json.load(json_file)
 
             module_coverage_data = parse_jacoco_report(module_xml_path, methods_dict)
             coverage_data_list.append(module_coverage_data)
@@ -263,10 +278,10 @@ if __name__ == "__main__":
         tasklist_json_path = sys.argv[3]
         
     if mode == "multi":
-        tmpoutput_dir = input("tmpoutput_dir:")
-        jacoco_result_path = input("jacoco_result_path:")
-        muti_module_extract(tmpoutput_dir, jacoco_result_path)
+        muti_module_extract(tasklist_json_path, jacoco_xml_path)
     elif mode == 'single':
         incomplete_covered_method_record_file = input("output_json_path (leave empty if not saving):")
         output_json_path = incomplete_covered_method_record_file if incomplete_covered_method_record_file.strip() else None
+        if output_json_path:
+            output_json_path = os.path.join(output_json_path, 'incomplete_covered_method_record.json')
         single_module_extract(jacoco_xml_path, tasklist_json_path, output_json_path)
